@@ -5,7 +5,7 @@
 	$: ({ contracts } = data);
 </script>
 
-<div class="p-4 grid grid-rows-2 place-items-center w-full gap-4 h-full overflow-auto">
+<div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<h1 class="text-2xl font-bold">Widok miesięczny</h1>
 	<!-- <form action="?/selectMonth&month=" method="POST">
 		<select name="month" id="" class="select" on:change={this.form.submit()}>
