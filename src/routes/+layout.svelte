@@ -11,6 +11,6 @@
 	// handleSession(page)
 </script>
 
+<Drawer />
 <Heading />
 <slot />
-<Drawer />
