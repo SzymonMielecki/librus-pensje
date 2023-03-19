@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Subjects {
+  id       String      @id @default(uuid())
+  name     String      @unique
+  Contract Contracts[]
+}
+
+model Teachers {
+  id       String      @id @default(uuid())
+  name     String      @unique
+  Contract Contracts[]
+}
+
+model ContractTypes {
+  id        String      @id @default(uuid())
+  name      String      @unique
+  Contracts Contracts[]
+}
+
+model Categories {
+  id        String      @id @default(uuid())
+  name      String      @unique
+  Contracts Contracts[]
+}
+
+model Contracts {
+  id               String        @id @default(uuid())
+  contractNumber   String        @unique
+  Teachers         Teachers      @relation(fields: [teacherName], references: [name])
+  teacherName      String
+  Subjects         Subjects      @relation(fields: [subjectName], references: [name])
+  subjectName      String
+  contractType     ContractTypes @relation(fields: [contractTypeName], references: [name])
+  contractTypeName String
+  Categories       Categories    @relation(fields: [categoryName], references: [name])
+  categoryName     String
+  hourlyRate       Float?
+  month            Int? //edzio
+  hoursWorked      Int? //edzio
+}

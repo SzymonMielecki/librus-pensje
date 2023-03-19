@@ -1,0 +1,48 @@
+{
+	"name": "librus-pensje",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write .",
+		"devStart": "nodemon --esm script.ts"
+	},
+	"devDependencies": {
+		"@skeletonlabs/skeleton": "^1.0.0",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.5.0",
+		"@tailwindcss/forms": "^0.5.3",
+		"@tailwindcss/line-clamp": "^0.4.2",
+		"@tailwindcss/typography": "^0.5.9",
+		"@types/node": "^18.15.3",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"autoprefixer": "^10.4.14",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"nodemon": "^2.0.21",
+		"postcss": "^8.4.21",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.8.1",
+		"prisma": "^4.11.0",
+		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+		"tailwindcss": "^3.2.7",
+		"ts-node": "^10.9.1",
+		"tslib": "^2.4.1",
+		"typescript": "^4.9.5",
+		"vite": "^4.0.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"@prisma/client": "^4.11.0",
+		"lucide": "^0.125.0",
+		"lucide-svelte": "^0.125.0"
+	}
+}
