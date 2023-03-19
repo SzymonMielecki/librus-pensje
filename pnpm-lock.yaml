@@ -15,6 +15,8 @@ specifiers:
   eslint: ^8.28.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
+  lucide: ^0.125.0
+  lucide-svelte: ^0.125.0
   nodemon: ^2.0.21
   postcss: ^8.4.21
   prettier: ^2.8.0
@@ -30,6 +32,8 @@ specifiers:
 
 dependencies:
   '@prisma/client': 4.11.0_prisma@4.11.0
+  lucide: 0.125.0
+  lucide-svelte: 0.125.0_svelte@3.57.0
 
 devDependencies:
   '@skeletonlabs/skeleton': 1.0.0
@@ -1435,6 +1439,18 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /lucide-svelte/0.125.0_svelte@3.57.0:
+    resolution: {integrity: sha512-IP0uFGUBUe30H/dKhmvQbRkHQaFLM5klJljjLTCUSsrIAbGjPWkqPVjYUXl8VVqnFYLR9l8qJq1Bt4QYUq+hog==}
+    peerDependencies:
+      svelte: ^3.49.0
+    dependencies:
+      svelte: 3.57.0
+    dev: false
+
+  /lucide/0.125.0:
+    resolution: {integrity: sha512-1CF7cAKOPOUpdEjeL2djzOw8S6mJ0z1iTCAXsrIZoUNWknVw2v0FSu3p9JomSUwfUnXa2fJX50hG3Ms+kdSQfQ==}
+    dev: false
+
   /magic-string/0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
@@ -2060,7 +2076,6 @@ packages:
   /svelte/3.57.0:
     resolution: {integrity: sha512-WMXEvF+RtAaclw0t3bPDTUe19pplMlfyKDsixbHQYgCWi9+O9VN0kXU1OppzrB9gPAvz4NALuoca2LfW2bOjTQ==}
     engines: {node: '>= 8'}
-    dev: true
 
   /tailwindcss/3.2.7_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==}
