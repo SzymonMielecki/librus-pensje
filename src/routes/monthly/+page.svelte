@@ -7,7 +7,7 @@
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<h1 class="text-2xl font-bold">Widok miesięczny</h1>
-	<!-- <form action="?/selectMonth&month=" method="POST">
+	<!-- <form action="?/selectMonth" method="POST">
 		<select name="month" id="" class="select" on:change={this.form.submit()}>
 			<option value="1">Styczeń</option>
 			<option value="2">Luty</option>
@@ -29,13 +29,13 @@
 				<thead>
 					<tr>
 						<th>Nazwisko i Imię</th>
-						<th>Numer Umowy</th>
+						<th class="table-sort-asc">Numer Umowy</th>
 						<th>Typ Umowy</th>
 						<th>Kategoria nauczyciela</th>
 						<th>Przedmiot</th>
-						<th>Stawka Godzinowa</th>
-						<th>Ilość lekcji w miesiącu</th>
-						<th>Wynagrodzenie miesięczne Netto</th>
+						<th class="table-sort-asc">Stawka Godzinowa</th>
+						<th class="table-sort-asc">Ilość lekcji w miesiącu</th>
+						<th class="table-sort-asc">Wynagrodzenie miesięczne Netto</th>
 						<th>Usuń umowę</th>
 					</tr>
 				</thead>
