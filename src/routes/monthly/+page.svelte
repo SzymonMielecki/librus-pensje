@@ -29,13 +29,13 @@
 				<thead>
 					<tr>
 						<th>Nazwisko i Imię</th>
-						<th class="table-sort-asc">Numer Umowy</th>
+						<th>Numer Umowy</th>
 						<th>Typ Umowy</th>
 						<th>Kategoria nauczyciela</th>
 						<th>Przedmiot</th>
-						<th class="table-sort-asc">Stawka Godzinowa</th>
-						<th class="table-sort-asc">Ilość lekcji w miesiącu</th>
-						<th class="table-sort-asc">Wynagrodzenie miesięczne Netto</th>
+						<th>Stawka Godzinowa</th>
+						<th>Ilość lekcji w miesiącu</th>
+						<th>Wynagrodzenie miesięczne Netto</th>
 						<th>Usuń umowę</th>
 					</tr>
 				</thead>
