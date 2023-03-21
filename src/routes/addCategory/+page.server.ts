@@ -1,23 +1,34 @@
-import type { Actions } from './$types';
-import { prisma } from '$lib/server/prisma';
+import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
+import { z } from 'zod';
+import { superValidate } from 'sveltekit-superforms/server';
+
+const categorySchema = z.object({
+	categoryName: z.string().min(1)
+});
+
+export const load: PageServerLoad = async (event) => {
+	const form = await superValidate(event, categorySchema);
+	return { form };
+};
 
 export const actions: Actions = {
-	createCategory: async ({ request }) => {
-		const { name } = Object.fromEntries(await request.formData()) as {
-			name: string;
-		};
+	default: async (event) => {
+		const form = await superValidate(event, categorySchema);
+		if (!form.valid) {
+			return fail(400, {
+				form
+			});
+		}
 		try {
-			await prisma.categories.create({
+			await prisma.contractTypes.create({
 				data: {
-					name
+					name: form.data.categoryName
 				}
 			});
 		} catch (err) {
-			return fail(500, { message: 'Could not create subject' });
+			return fail(500, { message: 'Could not create contract type' });
 		}
-		return {
-			status: 201
-		};
+		return { status: 201 };
 	}
 };
