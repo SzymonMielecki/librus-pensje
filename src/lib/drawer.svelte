@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import { Menu, Home, Calendar, Backpack, Contact, Newspaper, Users, Edit } from 'lucide-svelte';
+	import { Menu, Home, Calendar, Newspaper, Users, Edit } from 'lucide-svelte';
 	function drawerClose(): void {
 		drawerStore.close();
 	}
@@ -22,18 +22,6 @@
 				<a href="/monthly" class="btn gap-4 variant-ghost w-full" on:click={drawerClose}>
 					<Calendar />
 					Widok miesięczny
-				</a>
-			</li>
-			<li class="w-full">
-				<a href="/addTeacher" class="btn gap-4 variant-ghost w-full" on:click={drawerClose}>
-					<Contact />
-					Dodaj nauczyciela
-				</a>
-			</li>
-			<li class="w-full">
-				<a href="/addSubject" class="btn gap-4 variant-ghost w-full" on:click={drawerClose}>
-					<Backpack />
-					Dodaj przedmiot
 				</a>
 			</li>
 			<li class="w-full">
