@@ -4,7 +4,8 @@
 	import Heading from '$lib/heading.svelte';
 	import Drawer from '$lib/drawer.svelte';
 
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+	// import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+	import '../techni.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 
