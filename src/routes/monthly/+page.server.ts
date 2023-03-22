@@ -4,8 +4,9 @@ import { prisma } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
+	const d = new Date();
 	return {
-		contracts: await prisma.contracts.findMany()
+		contracts: await prisma.contracts.findMany({ where: { month: d.getMonth() + 1 } })
 	};
 };
 
