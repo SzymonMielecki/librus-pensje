@@ -17,14 +17,14 @@
 		<form method="POST" class="h-full" autocomplete="off" use:enhance>
 			<div class="form-group flex content-start flex-col h-full p-4 gap-10">
 				<h1 class="m-4">Nowy typ umowy</h1>
-
-				<label for="contractTypeName">Nazwa typu umowy</label>
-				<input type="text" name="contractTypeName" id="contractTypeName" class="input" bind:value={$form.contractTypeName}/>
-
-				{#if $errors.contractTypeName}
-					<small class="text-primary-400">{$errors.contractTypeName}</small>
-				{/if}
-
+					<label>
+						Nazwa typu umowy
+						<input type="text" name="contractTypeName" id="contractTypeName" class="input" bind:value={$form.contractTypeName}/>
+						
+						{#if $errors.contractTypeName}
+						<small class="text-primary-400">{$errors.contractTypeName}</small>
+						{/if}
+					</label>
 				<button class="btn variant-filled" type="submit">Dodaj</button>
 			</div>
 		</form>
