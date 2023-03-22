@@ -125,7 +125,8 @@ export const actions: Actions = {
 						contractNumber: form.data.contractNumber,
 						month: 6
 					}
-				]
+				],
+				skipDuplicates: true
 			});
 		} catch (err) {
 			return fail(500, { message: 'Could not create subject' });
