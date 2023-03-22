@@ -1,6 +1,5 @@
 <script lang='ts'>
   import { superForm } from "sveltekit-superforms/client";
-  import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -12,8 +11,6 @@
 	}
 });
 </script>
-
-<SuperDebug data={$form}></SuperDebug>
 
 <div class="flex justify-center items-center h-full w-full">
 	<div class="card w-auto h-auto">

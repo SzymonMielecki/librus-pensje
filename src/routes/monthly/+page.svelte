@@ -3,6 +3,7 @@
 	export let data: PageData;
 	import { Trash } from 'lucide-svelte';
 	$: ({ contracts } = data);
+	$: console.log(contracts);
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
@@ -42,7 +43,7 @@
 				<tbody>
 					{#each contracts as contract, i}
 						<tr>
-							<td>{contract.teacherName}</td>
+							<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
 							<td>{contract.contractNumber}</td>
 							<td>{contract.contractTypeName}</td>
 							<td>{contract.categoryName}</td>
