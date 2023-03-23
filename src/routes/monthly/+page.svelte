@@ -46,26 +46,28 @@
 				<tbody>
 					{#each contracts as contractMonth, i}
 						{#each contractMonth as contract, i}
-							<tr>
-								<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
-								<td>{contract.contractNumber}</td>
-								<td>{contract.contractTypeName}</td>
-								<td>{contract.categoryName}</td>
-								<td>{contract.subjectName}</td>
-								<td>{contract.hourlyRate}</td>
-								<td>{Number(contract.hoursWorked)}</td>
-								<td>{Number(contract.hoursWorked) * Number(contract.hourlyRate)}</td>
-								<td>
-									<form
-										action="?/deleteContract&id={contract.id}"
-										method="POST"
-										class=""
-										name="deleteForm"
-									>
-										<button type="submit"><Trash /></button>
-									</form>
-								</td>
-							</tr>
+							{#if contract.month == currentMonth}
+								<tr>
+									<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
+									<td>{contract.contractNumber}</td>
+									<td>{contract.contractTypeName}</td>
+									<td>{contract.categoryName}</td>
+									<td>{contract.subjectName}</td>
+									<td>{contract.hourlyRate}</td>
+									<td>{Number(contract.hoursWorked)}</td>
+									<td>{Number(contract.hoursWorked) * Number(contract.hourlyRate)}</td>
+									<td>
+										<form
+											action="?/deleteContract&id={contract.id}"
+											method="POST"
+											class=""
+											name="deleteForm"
+										>
+											<button type="submit"><Trash /></button>
+										</form>
+									</td>
+								</tr>
+							{/if}
 						{/each}
 					{/each}
 				</tbody>
