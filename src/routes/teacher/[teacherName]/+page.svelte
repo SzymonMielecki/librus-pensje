@@ -7,10 +7,8 @@
     export let teacherName = $page.params.teacherName;
 </script>
 
-<div class="grid grid-rows-2">
-    <div class="grid place-items-center">
-        <h3>{teacherName}</h3>
-    </div>
+<div class="flex justify-start flex-col">
+    <h3>{teacherName}</h3>
     <div>
         <table class="table">
             <thead>
