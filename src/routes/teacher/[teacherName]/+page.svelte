@@ -5,12 +5,13 @@
 
 	export let data: PageData;
     $: ({ contracts } = data);
-
-    $: for(const contract of contracts){
-        console.log(contract)
-    }
-
+    
     $: console.log(contracts)
+
+    // $: for(const contract of contracts){
+    //     console.log(contract)
+    // }
+
     
     export let teacherName = $page.params.teacherName;
 </script>
@@ -41,17 +42,17 @@
                     <td>Ilość godzin</td>
                     <td></td>
                     <!-- <td>{contract.subjectName}</td> -->
-                    {#each contracts as contract, i}
+                    <!-- {#each contracts as contract, i}
                         <td>{Number(contract.hoursWorked)}</td>
-                    {/each}
+                    {/each} -->
                 </tr>
                 <tr>
                     <td>Wynagrodzenie</td>
                     <!-- <td>{contract.subjectName}</td> -->
                     <td></td>
-                    {#each contracts as contract, i}
+                    <!-- {#each contracts as contract, i}
                         <td>{Number(contract.hoursWorked)*Number(contract.hourlyRate)}</td>
-                    {/each}
+                    {/each} -->
                     </tr>
             </tbody>
         </table>
