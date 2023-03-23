@@ -5,7 +5,6 @@ export const load: PageServerLoad = async ({ params }) => {
 	const thisTeacherName: string = params.teacherName;
 	console.log(params);
 	return {
-		teacher: await prisma.teachers.findUnique({ where: { name: thisTeacherName } }),
 		contracts: await prisma.contracts.findMany({ where: { teacherName: thisTeacherName } }),
 		september: await prisma.contracts.findMany({
 			where: { teacherName: thisTeacherName, month: 9 },

@@ -1,10 +1,8 @@
 <script lang="ts">
     import { page } from '$app/stores'
-	import { number } from 'zod';
     import type { PageData } from './$types';
 	export let data: PageData;
-    $: ({ teacher, contracts, october, september, november, december, january, february, march, april, may, june } = data);
-    const months = [september, october, november, december, january, february, march, april, may, june]
+    $: ({ contracts, october, september, november, december, january, february, march, april, may, june } = data);
 
     export let teacherName = $page.params.teacherName;
 </script>
