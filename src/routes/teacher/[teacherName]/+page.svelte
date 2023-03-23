@@ -3,8 +3,16 @@
     import type { PageData } from './$types';
 	export let data: PageData;
     $: ({ contracts } = data);
-    $: console.log(contracts)
 
+    contracts.map(getMonthlyHours);
+    
+    function getMonthlyHours(contract: contract) {
+        let contractMonth = contract.month;
+        let contractHours = contract.hoursWorked;
+        return {contractMonth: contractHours}
+    }
+    $: console.log(contracts)
+    
     export let teacherName = $page.params.teacherName;
 </script>
 
@@ -35,6 +43,7 @@
                         <td>Ilość godzin</td>
                         <td>{contract.subjectName}</td>
                         <td></td>
+                    
                     </tr>
                     <tr>
                         <td>Wynagrodzenie</td>

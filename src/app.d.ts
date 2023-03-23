@@ -8,5 +8,15 @@ declare global {
 		// interface Platform {}
 	}
 	var prisma: PrismaClient;
+	declare type contract = {
+		id: string;
+		contractNumber: string;
+		teacherName: string;
+		subjectName: string;
+		contractTypeName: string;
+		hourlyRate: number;
+		hoursWorked: number;
+		month: number;
+	};
 }
 export {};
