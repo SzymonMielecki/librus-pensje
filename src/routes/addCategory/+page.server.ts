@@ -1,6 +1,7 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
+import { prisma } from '$lib/server/prisma';
 import { superValidate } from 'sveltekit-superforms/server';
 
 const categorySchema = z.object({
