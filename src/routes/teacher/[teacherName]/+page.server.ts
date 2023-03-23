@@ -5,9 +5,6 @@ export const load: PageServerLoad = async ({ params }) => {
 	const thisTeacherName: string = params.teacherName;
 	console.log(params);
 	return {
-		contracts: await prisma.contracts.groupBy({
-			by: ['teacherName', 'subjectName', 'month'],
-			where: { teacherName: thisTeacherName }
-		})
+		contracts: await prisma.contracts.findMany({ where: { teacherName: thisTeacherName } })
 	};
 };
