@@ -1,16 +1,15 @@
 <script lang="ts">
     import { page } from '$app/stores'
     import type { PageData } from './$types';
+
+
 	export let data: PageData;
     $: ({ contracts } = data);
 
-    console.log(contracts.map(getMonthlyHours));
-    
-    function getMonthlyHours(contract: any) {
-        let contractMonth = contract.month;
-        let contractHours = contract.hoursWorked;
-        return {contractMonth: contractHours}
+    $: for(const contract of contracts){
+        console.log(contract)
     }
+
     $: console.log(contracts)
     
     export let teacherName = $page.params.teacherName;
@@ -23,7 +22,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Przedmiot</th>
+                    <!-- <th>Przedmiot</th> -->
                     <th>Roczne</th>
                     <th>Wrzesień</th>
                     <th>Październik</th>
@@ -38,19 +37,22 @@
                 </tr>
             </thead>
             <tbody>
-                {#each contracts as contract, i}
-                    <tr>
-                        <td>Ilość godzin</td>
-                        <td>{contract.subjectName}</td>
-                        <td></td>
-                    
+                <tr>
+                    <td>Ilość godzin</td>
+                    <td></td>
+                    <!-- <td>{contract.subjectName}</td> -->
+                    {#each contracts as contract, i}
+                        <td>{Number(contract.hoursWorked)}</td>
+                    {/each}
+                </tr>
+                <tr>
+                    <td>Wynagrodzenie</td>
+                    <!-- <td>{contract.subjectName}</td> -->
+                    <td></td>
+                    {#each contracts as contract, i}
+                        <td>{Number(contract.hoursWorked)*Number(contract.hourlyRate)}</td>
+                    {/each}
                     </tr>
-                    <tr>
-                        <td>Wynagrodzenie</td>
-                        <td>{contract.subjectName}</td>
-                        <td></td>
-                    </tr>
-                {/each}
             </tbody>
         </table>
     </div>
