@@ -2,7 +2,7 @@
     import { page } from '$app/stores'
     import type { PageData } from './$types';
 	export let data: PageData;
-    $: ({ contracts} = data);
+    $: ({ contracts } = data);
     $: console.log(contracts)
 
     export let teacherName = $page.params.teacherName;
@@ -30,18 +30,18 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- {#each contracts as contract, i}
-                <tr>
-                    <td>Ilość godzin</td>
-                    <td>{contract.subjectName}</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Wynagrodzenie</td>
-                    <td>{contract.subjectName}</td>
-                    <td></td>
-                </tr>
-                {/each} -->
+                {#each contracts as contract, i}
+                    <tr>
+                        <td>Ilość godzin</td>
+                        <td>{contract.subjectName}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Wynagrodzenie</td>
+                        <td>{contract.subjectName}</td>
+                        <td></td>
+                    </tr>
+                {/each}
             </tbody>
         </table>
     </div>
