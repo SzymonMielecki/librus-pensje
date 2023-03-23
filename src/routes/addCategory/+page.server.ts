@@ -22,7 +22,7 @@ export const actions: Actions = {
 			});
 		}
 		try {
-			await prisma.contractTypes.create({
+			await prisma.categories.create({
 				data: {
 					name: form.data.categoryName
 				}
