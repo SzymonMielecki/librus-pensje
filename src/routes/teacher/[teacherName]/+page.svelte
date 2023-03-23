@@ -6,7 +6,7 @@
 
     console.log(contracts.map(getMonthlyHours));
     
-    function getMonthlyHours(contract: contract) {
+    function getMonthlyHours(contract: any) {
         let contractMonth = contract.month;
         let contractHours = contract.hoursWorked;
         return {contractMonth: contractHours}
