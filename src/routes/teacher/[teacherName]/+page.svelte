@@ -4,7 +4,7 @@
 	export let data: PageData;
     $: ({ contracts } = data);
 
-    contracts.map(getMonthlyHours);
+    console.log(contracts.map(getMonthlyHours));
     
     function getMonthlyHours(contract: contract) {
         let contractMonth = contract.month;
