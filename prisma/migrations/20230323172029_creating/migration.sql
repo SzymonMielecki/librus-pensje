@@ -43,10 +43,18 @@ CREATE TABLE `Contracts` (
     `contractTypeName` VARCHAR(191) NOT NULL,
     `categoryName` VARCHAR(191) NOT NULL,
     `hourlyRate` DOUBLE NULL,
-    `month` INTEGER NULL,
-    `hoursWorked` INTEGER NULL,
 
-    UNIQUE INDEX `Contracts_teacherName_subjectName_month_key`(`teacherName`, `subjectName`, `month`),
+    UNIQUE INDEX `Contracts_teacherName_subjectName_key`(`teacherName`, `subjectName`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `HoursMonths` (
+    `id` VARCHAR(191) NOT NULL,
+    `month` INTEGER NOT NULL,
+    `contractsId` VARCHAR(191) NOT NULL,
+    `hoursWorked` INTEGER NOT NULL,
+
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -61,3 +69,6 @@ ALTER TABLE `Contracts` ADD CONSTRAINT `Contracts_contractTypeName_fkey` FOREIGN
 
 -- AddForeignKey
 ALTER TABLE `Contracts` ADD CONSTRAINT `Contracts_categoryName_fkey` FOREIGN KEY (`categoryName`) REFERENCES `Categories`(`name`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `HoursMonths` ADD CONSTRAINT `HoursMonths_contractsId_fkey` FOREIGN KEY (`contractsId`) REFERENCES `Contracts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

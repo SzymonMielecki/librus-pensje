@@ -46,8 +46,15 @@ model Contracts {
   Categories       Categories    @relation(fields: [categoryName], references: [name])
   categoryName     String
   hourlyRate       Float?
-  month            Int? //edzio
-  hoursWorked      Int? //edzio
+  hoursPerMonth    HoursMonths[]
 
-  @@unique([teacherName, subjectName, month])
+  @@unique([teacherName, subjectName])
+}
+
+model HoursMonths {
+  id          String    @id @default(uuid())
+  month       Int
+  Contracts   Contracts @relation(fields: [contractsId], references: [id])
+  contractsId String
+  hoursWorked Int?
 }

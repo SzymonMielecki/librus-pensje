@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     import { page } from '$app/stores'
     import type { PageData } from './$types';
 
@@ -6,14 +6,18 @@
 	export let data: PageData;
     $: ({ contracts } = data);
     
+    let hoursWorkedYearly: number = 0;
+    let hoursWorkedPerMonth: number[] = [0,0,0,0,0,0,0,0,0,0];
+    let payPerSubject: number[] = [];
+
+    $: for(let i = 0; i < contracts.length; i++){
+        hoursWorkedYearly += Number(contracts[i].hoursWorked);
+        hoursWorkedPerMonth[i] = Number(contracts[i].hoursWorked);
+    }
+
     $: console.log(contracts)
-
-    // $: for(const contract of contracts){
-    //     console.log(contract)
-    // }
-
     
-    export let teacherName = $page.params.teacherName;
+    let teacherName = $page.params.teacherName;
 </script>
 
 <div class="flex justify-start flex-col">
@@ -23,7 +27,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <!-- <th>Przedmiot</th> -->
+                    <th>Przedmiot</th>
                     <th>Roczne</th>
                     <th>Wrzesień</th>
                     <th>Październik</th>
@@ -41,20 +45,20 @@
                 <tr>
                     <td>Ilość godzin</td>
                     <td></td>
-                    <!-- <td>{contract.subjectName}</td> -->
-                    <!-- {#each contracts as contract, i}
-                        <td>{Number(contract.hoursWorked)}</td>
-                    {/each} -->
+                    <td>{hoursWorkedYearly}</td>
+                    {#each hoursWorkedPerMonth as thisMonthsWorkedHours}
+                        <td>{Number(thisMonthsWorkedHours)}</td>
+                    {/each}
                 </tr>
                 <tr>
                     <td>Wynagrodzenie</td>
-                    <!-- <td>{contract.subjectName}</td> -->
                     <td></td>
-                    <!-- {#each contracts as contract, i}
+                    <td>{hoursWorkedYearly}</td>
+                    {#each contracts as contract, i}
                         <td>{Number(contract.hoursWorked)*Number(contract.hourlyRate)}</td>
-                    {/each} -->
-                    </tr>
+                    {/each}
+                </tr>
             </tbody>
         </table>
     </div>
-</div>
+</div> -->

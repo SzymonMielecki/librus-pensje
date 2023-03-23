@@ -1,21 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { Trash } from 'lucide-svelte';
-	import { afterUpdate } from 'svelte';
+	import { Trash } from 'lucide-svelte';;
 
-	$: ({ contractsSeptember, contractsOctober, contractsNovember, contractsDecember, contractsJanuary, contractsFebruary, contractsMarch, contractsApril, contractsMay, contractsJune } = data);
-	$: contracts = [contractsSeptember, contractsOctober, contractsNovember, contractsDecember, contractsJanuary, contractsFebruary, contractsMarch, contractsApril, contractsMay, contractsJune];
-	const d = new Date();
-	let currentMonth = d.getMonth() + 1;
-	afterUpdate(() => {
-		console.log(currentMonth);
-	});
+	$: ({ contracts } = data);
+	$: console.log(contracts);
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<h1 class="text-2xl font-bold">Widok miesięczny</h1>
-		<select name="month" id="" class="select" bind:value={currentMonth}>
+		<!-- <select name="month" id="" class="select" bind:value={currentMonth}>
 			<option value="9">Wrzesień</option>
 			<option value="10">Październik</option>
 			<option value="11">Listopad</option>
@@ -26,7 +20,7 @@
 			<option value="4">Kwiecień</option>
 			<option value="5">Maj</option>
 			<option value="6">Czerwiec</option>
-		</select>
+		</select> -->
 	<div class="w-full">
 		<div class="table-container">
 			<table class="table table-hover table-compact">
@@ -44,7 +38,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each contracts as contractMonth, i}
+					<!-- {#each contracts as contractMonth, i}
 						{#each contractMonth as contract, i}
 							{#if contract.month == currentMonth}
 								<tr>
@@ -69,7 +63,7 @@
 								</tr>
 							{/if}
 						{/each}
-					{/each}
+					{/each} -->
 				</tbody>
 			</table>
 		</div>

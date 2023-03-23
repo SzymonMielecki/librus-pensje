@@ -33,100 +33,31 @@ export const actions: Actions = {
 			});
 		}
 		try {
-			await prisma.contracts.createMany({
-				data: [
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 9
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 10
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 11
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 12
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 1
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 2
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 3
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 4
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 5
-					},
-					{
-						teacherName: form.data.teacherName,
-						subjectName: form.data.subjectName,
-						contractTypeName: form.data.contractTypeName,
-						categoryName: form.data.categoryName,
-						hourlyRate: form.data.hourlyRate,
-						contractNumber: form.data.contractNumber,
-						month: 6
+			await prisma.contracts.create({
+				data: {
+					teacherName: form.data.teacherName,
+					subjectName: form.data.subjectName,
+					contractTypeName: form.data.contractTypeName,
+					categoryName: form.data.categoryName,
+					contractNumber: form.data.contractNumber,
+					hourlyRate: form.data.hourlyRate,
+					hoursPerMonth: {
+						createMany: {
+							data: [
+								{ month: 9 },
+								{ month: 10 },
+								{ month: 11 },
+								{ month: 12 },
+								{ month: 1 },
+								{ month: 2 },
+								{ month: 3 },
+								{ month: 4 },
+								{ month: 5 },
+								{ month: 6 }
+							]
+						}
 					}
-				],
-				skipDuplicates: true
+				}
 			});
 		} catch (err) {
 			return fail(500, { message: 'Could not create subject' });
