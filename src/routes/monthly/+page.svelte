@@ -4,8 +4,8 @@
 	import { Trash } from 'lucide-svelte';
 	import { afterUpdate } from 'svelte';
 
-	$: ({ contracts } = data);
-	$: console.log(contracts);
+	$: ({ contractsSeptember, contractsOctober, contractsNovember, contractsDecember, contractsJanuary, contractsFebruary, contractsMarch, contractsApril, contractsMay, contractsJune } = data);
+	$: contracts = [contractsSeptember, contractsOctober, contractsNovember, contractsDecember, contractsJanuary, contractsFebruary, contractsMarch, contractsApril, contractsMay, contractsJune];
 	const d = new Date();
 	let currentMonth = d.getMonth() + 1;
 	afterUpdate(() => {
@@ -44,27 +44,29 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each contracts as contract, i}
-						<tr>
-							<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
-							<td>{contract.contractNumber}</td>
-							<td>{contract.contractTypeName}</td>
-							<td>{contract.categoryName}</td>
-							<td>{contract.subjectName}</td>
-							<td>{contract.hourlyRate}</td>
-							<td>{Number(contract.hoursWorked)}</td>
-							<td>{Number(contract.hoursWorked) * Number(contract.hourlyRate)}</td>
-							<td>
-								<form
-									action="?/deleteContract&id={contract.id}"
-									method="POST"
-									class=""
-									name="deleteForm"
-								>
-									<button type="submit"><Trash /></button>
-								</form>
-							</td>
-						</tr>
+					{#each contracts as contractMonth, i}
+						{#each contractMonth as contract, i}
+							<tr>
+								<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
+								<td>{contract.contractNumber}</td>
+								<td>{contract.contractTypeName}</td>
+								<td>{contract.categoryName}</td>
+								<td>{contract.subjectName}</td>
+								<td>{contract.hourlyRate}</td>
+								<td>{Number(contract.hoursWorked)}</td>
+								<td>{Number(contract.hoursWorked) * Number(contract.hourlyRate)}</td>
+								<td>
+									<form
+										action="?/deleteContract&id={contract.id}"
+										method="POST"
+										class=""
+										name="deleteForm"
+									>
+										<button type="submit"><Trash /></button>
+									</form>
+								</td>
+							</tr>
+						{/each}
 					{/each}
 				</tbody>
 			</table>
