@@ -11,8 +11,8 @@ export const load: PageServerLoad = async () => {
 		}
 	});
 	return {
-		contracts,
-		hoursMonths
+		contracts: contracts,
+		hoursMonths: hoursMonths
 	};
 };
 
