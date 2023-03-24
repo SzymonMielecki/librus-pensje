@@ -5,6 +5,13 @@ export const load: PageServerLoad = async ({ params }) => {
 	const thisTeacherName: string = params.teacherName;
 	console.log(params);
 	return {
-		contracts: await prisma.contracts.findMany({ where: { teacherName: thisTeacherName } })
+		contracts: await prisma.contracts.findMany({
+			where: {
+				teacherName: thisTeacherName
+			},
+			include: {
+				hoursPerMonth: true
+			}
+		})
 	};
 };
