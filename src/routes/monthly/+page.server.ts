@@ -7,9 +7,6 @@ export const load: PageServerLoad = async () => {
 	const contracts = await prisma.contracts.findMany({
 		include: {
 			hoursPerMonth: {
-				orderBy: {
-					month: 'asc'
-				},
 				select: {
 					month: true,
 					hoursWorked: true
