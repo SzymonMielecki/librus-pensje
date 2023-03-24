@@ -53,8 +53,10 @@ model Contracts {
 
 model HoursMonths {
   id          String    @id @default(uuid())
+  Contracts   Contracts @relation(fields: [contractId], references: [id])
+  contractId  String
   month       Int
-  Contracts   Contracts @relation(fields: [contractsId], references: [id])
-  contractsId String
   hoursWorked Int?
+
+  @@unique([contractId, month])
 }

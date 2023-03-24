@@ -1,16 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { Trash } from 'lucide-svelte';;
-
+	import { Trash } from 'lucide-svelte';
+	let selectedMonth: string;
 	$: ({ contracts } = data);
-	$: console.log(contracts);
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<h1 class="text-2xl font-bold">Widok miesięczny</h1>
-		<!-- <select name="month" id="" class="select" bind:value={currentMonth}>
-			<option value="9">Wrzesień</option>
+		<select name="month" id="" class="select" bind:value={selectedMonth}>
+			<option selected value="9">Wrzesień</option>
 			<option value="10">Październik</option>
 			<option value="11">Listopad</option>
 			<option value="12">Grudzień</option>
@@ -20,7 +19,7 @@
 			<option value="4">Kwiecień</option>
 			<option value="5">Maj</option>
 			<option value="6">Czerwiec</option>
-		</select> -->
+		</select>
 	<div class="w-full">
 		<div class="table-container">
 			<table class="table table-hover table-compact">
@@ -38,32 +37,28 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- {#each contracts as contractMonth, i}
-						{#each contractMonth as contract, i}
-							{#if contract.month == currentMonth}
-								<tr>
-									<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
-									<td>{contract.contractNumber}</td>
-									<td>{contract.contractTypeName}</td>
-									<td>{contract.categoryName}</td>
-									<td>{contract.subjectName}</td>
-									<td>{contract.hourlyRate}</td>
-									<td>{Number(contract.hoursWorked)}</td>
-									<td>{Number(contract.hoursWorked) * Number(contract.hourlyRate)}</td>
-									<td>
-										<form
-											action="?/deleteContract&id={contract.id}"
-											method="POST"
-											class=""
-											name="deleteForm"
-										>
-											<button type="submit"><Trash /></button>
-										</form>
-									</td>
-								</tr>
-							{/if}
-						{/each}
-					{/each} -->
+					{#each contracts as contract, i}
+							<tr>
+								<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
+								<td>{contract.contractNumber}</td>
+								<td>{contract.contractTypeName}</td>
+								<td>{contract.categoryName}</td>
+								<td>{contract.subjectName}</td>
+								<td>{Number(contract.hourlyRate)}</td>
+								<td>{Number(contract.hoursPerMonth.find(element => element.month === Number(selectedMonth))?.hoursWorked)}</td>
+								<td>{Number(contract.hoursPerMonth.find(element => element.month === Number(selectedMonth))?.hoursWorked) * Number(contract.hourlyRate)}</td>
+								<td>
+									<form
+										action="?/deleteContract&id={contract.id}"
+										method="POST"
+										class=""
+										name="deleteForm"
+									>
+										<button type="submit"><Trash /></button>
+									</form>
+								</td>
+							</tr>
+					{/each}
 				</tbody>
 			</table>
 		</div>

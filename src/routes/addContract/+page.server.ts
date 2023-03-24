@@ -27,12 +27,14 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, contractSchema);
+		console.log(form);
 		if (!form.valid) {
 			return fail(400, {
 				form
 			});
 		}
 		try {
+			console.log('created contract');
 			await prisma.contracts.create({
 				data: {
 					teacherName: form.data.teacherName,
@@ -63,7 +65,8 @@ export const actions: Actions = {
 			return fail(500, { message: 'Could not create subject' });
 		}
 		return {
-			status: 201
+			status: 201,
+			form
 		};
 	}
 };
