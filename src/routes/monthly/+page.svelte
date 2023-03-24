@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	export let data: PageData;
 	import { Trash } from 'lucide-svelte';
+	export let data: PageData;
 	let selectedMonth: string;
 	$: ({ contracts } = data);
 </script>
