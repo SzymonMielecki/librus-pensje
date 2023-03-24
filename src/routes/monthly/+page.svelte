@@ -2,7 +2,8 @@
 	import type { PageData } from './$types';
 	import { Trash } from 'lucide-svelte';
 	export let data: PageData;
-	let selectedMonth: string;
+	const d = new Date();
+	let selectedMonth: string = String(d.getMonth() + 1);
 	$: ({ contracts } = data);
 </script>
 
