@@ -4,13 +4,15 @@ import { prisma } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
+	const hoursMonths = await prisma.hoursMonths.findMany();
 	const contracts = await prisma.contracts.findMany({
 		include: {
 			hoursPerMonth: true
 		}
 	});
 	return {
-		contracts: contracts
+		contracts,
+		hoursMonths
 	};
 };
 

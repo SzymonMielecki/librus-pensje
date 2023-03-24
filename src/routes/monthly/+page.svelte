@@ -4,7 +4,10 @@
 	export let data: PageData;
 	const d = new Date();
 	let selectedMonth: string = String(d.getMonth() + 1);
-	$: ({ contracts } = data);
+	$: ({ contracts, hoursMonths } = data);
+	$: console.log(selectedMonth);
+	$: console.log(contracts);
+	$: console.log(hoursMonths);
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
