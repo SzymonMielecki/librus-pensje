@@ -6,12 +6,7 @@ import { fail } from '@sveltejs/kit';
 export const load: PageServerLoad = async () => {
 	const contracts = await prisma.contracts.findMany({
 		include: {
-			hoursPerMonth: {
-				select: {
-					month: true,
-					hoursWorked: true
-				}
-			}
+			hoursPerMonth: true
 		}
 	});
 	return {
