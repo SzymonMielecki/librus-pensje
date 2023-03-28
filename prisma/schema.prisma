@@ -10,53 +10,76 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Subjects {
-  id       String      @id @default(uuid())
-  name     String      @unique
-  Contract Contracts[]
+model Employee {
+  id       String     @id @default(uuid())
+  name     String
+  Contract Contract[]
 }
 
-model Teachers {
-  id       String      @id @default(uuid())
-  name     String      @unique
-  Contract Contracts[]
+model Service {
+  id              String            @id @default(uuid())
+  name            String
+  ContractService ContractService[]
 }
 
-model ContractTypes {
-  id        String      @id @default(uuid())
-  name      String      @unique
-  Contracts Contracts[]
+model ContractType {
+  id       String     @id @default(uuid())
+  name     String
+  Contract Contract[]
 }
 
-model Categories {
-  id        String      @id @default(uuid())
-  name      String      @unique
-  Contracts Contracts[]
+model SalaryType {
+  id              String            @id @default(uuid())
+  name            String
+  Contract        Contract[]
+  ContractService ContractService[]
 }
 
-model Contracts {
-  id               String        @id @default(uuid())
-  contractNumber   String
-  Teachers         Teachers      @relation(fields: [teacherName], references: [name])
-  teacherName      String
-  Subjects         Subjects      @relation(fields: [subjectName], references: [name])
-  subjectName      String
-  contractType     ContractTypes @relation(fields: [contractTypeName], references: [name])
-  contractTypeName String
-  Categories       Categories    @relation(fields: [categoryName], references: [name])
-  categoryName     String
-  hourlyRate       Float?
-  hoursPerMonth    HoursMonths[]
+model Contract {
+  id              String            @id @default(uuid())
+  number          String
+  employee        Employee          @relation(fields: [employeeId], references: [id])
+  employeeId      String
+  contractType    ContractType      @relation(fields: [contractTypeId], references: [id])
+  contractTypeId  String
+  fixedSalary     Float?
+  SalaryType      SalaryType?       @relation(fields: [salaryTypeId], references: [id])
+  salaryTypeId    String?
+  ContractService ContractService[]
+}
 
-  @@unique([teacherName, subjectName])
+model Category {
+  id              String            @id @default(uuid())
+  name            String
+  ContractService ContractService[]
+}
+
+model ContractEmployeeType {
+  id              String            @id @default(uuid())
+  name            String
+  ContractService ContractService[]
 }
 
 model HoursMonths {
-  id          String    @id @default(uuid())
-  Contracts   Contracts @relation(fields: [contractId], references: [id])
-  contractId  String
-  month       Int
-  hoursWorked Int?
+  id                String           @id @default(uuid())
+  month             Int
+  hoursWorked       Int?
+  ContractService   ContractService? @relation(fields: [contractServiceId], references: [id])
+  contractServiceId String?
+}
 
-  @@unique([contractId, month])
+model ContractService {
+  id                     String               @id @default(uuid())
+  contract               Contract             @relation(fields: [contractId], references: [id])
+  contractId             String
+  service                Service              @relation(fields: [serviceId], references: [id])
+  serviceId              String
+  salary                 Float
+  salaryType             SalaryType           @relation(fields: [salaryTypeId], references: [id])
+  salaryTypeId           String
+  category               Category             @relation(fields: [categoryId], references: [id])
+  categoryId             String
+  ContractEmployeeType   ContractEmployeeType @relation(fields: [contractEmployeeTypeId], references: [id])
+  contractEmployeeTypeId String
+  hoursMonths            HoursMonths[]
 }
