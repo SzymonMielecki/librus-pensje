@@ -12,51 +12,51 @@ datasource db {
 
 model Employee {
   id       String     @id @default(uuid())
-  name     String
+  name     String     @unique
   Contract Contract[]
 }
 
 model Service {
   id              String            @id @default(uuid())
-  name            String
+  name            String            @unique
   ContractService ContractService[]
 }
 
 model ContractType {
   id       String     @id @default(uuid())
-  name     String
+  name     String     @unique
   Contract Contract[]
 }
 
 model SalaryType {
   id              String            @id @default(uuid())
-  name            String
+  name            String            @unique
   Contract        Contract[]
   ContractService ContractService[]
 }
 
 model Contract {
   id              String            @id @default(uuid())
-  number          String
   employee        Employee          @relation(fields: [employeeId], references: [id])
   employeeId      String
-  contractType    ContractType      @relation(fields: [contractTypeId], references: [id])
-  contractTypeId  String
+  contractType    ContractType?     @relation(fields: [contractTypeId], references: [id])
+  contractTypeId  String?
   fixedSalary     Float?
   SalaryType      SalaryType?       @relation(fields: [salaryTypeId], references: [id])
   salaryTypeId    String?
   ContractService ContractService[]
+  number          String
 }
 
 model Category {
   id              String            @id @default(uuid())
-  name            String
+  name            String            @unique
   ContractService ContractService[]
 }
 
 model ContractEmployeeType {
   id              String            @id @default(uuid())
-  name            String
+  name            String            @unique
   ContractService ContractService[]
 }
 

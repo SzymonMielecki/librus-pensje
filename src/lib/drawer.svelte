@@ -25,12 +25,6 @@
 				</a>
 			</li>
 			<li class="w-full">
-				<a href="/addContractType" class="btn gap-4 variant-ringed w-full hover:variant-ghost" on:click={drawerClose}>
-					<Newspaper />
-					Dodaj typ umowy
-				</a>
-			</li>
-			<li class="w-full">
 				<a href="/addCategory" class="btn gap-4 variant-ringed w-full hover:variant-ghost" on:click={drawerClose}>
 					<Users />
 					Dodaj kategorię

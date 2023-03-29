@@ -1,95 +1,70 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { superForm } from "sveltekit-superforms/client";
+	import { Plus } from "lucide-svelte";
 
 	export let data: PageData;
 
-	$: ({ teachers, subjects, contractTypes, categories } = data);
+	$: ({ employee, service, contractType } = data);
 	
 	const { form, errors, enhance} = superForm(data.form, { 
 	  taintedMessage: "Czy na pewno chcesz opuścić stronę?", 
 	  validators: {
-		  contractTypeName: (contractTypeName) => (contractTypeName.length < 1 ? "Nazwa typu umowy nie może być pusta" : null)
+
 	  }
-  });
+  	});
+	let serviceCount = 1;
 </script>
 
 <div class="flex justify-center items-center h-full w-full">
 	<div class="card w-auto h-auto max-h-full">
-		<form method="POST" class="h-full">
+		<form method="POST" class="h-full" use:enhance>
 			<div class="form-group flex content-start flex-col h-full p-4 gap-5">
 				<h1 class="m-4">Nowa Umowa</h1>
 				
 				<label>
-					Nazwisko i imię nauczyciela
+					Nazwisko i imię pracownika
 					<select
-						name="teacherName"
-						id="teacherName"
+						name="employeeName"
+						id="employeeName"
 						class="select"
-						bind:value={$form.teacherName}
+						bind:value={$form.employeeName}
 					>
-						<option value="" disabled selected hidden>Wybierz nauczyciela</option>
-						$: {#each teachers as teacher}
-							<option value={teacher.name}>{teacher.name}</option>
+						<option value="" disabled selected hidden>Wybierz pracownika</option>
+						$: {#each employee as employee}
+							<option value={employee.name}>{employee.name}</option>
 						{/each}
 					</select>
 				</label>
+				
+				<button class="btn w-full variant-filled flex justify-start" on:click={()=>{serviceCount+=1}}><Plus/>Dodaj nową usługę</button>
+				{#each Array(serviceCount) as _, i}
+					<label>
+						Nazwa usługi {i+1}
+						<select name="serviceName" id="serviceName" class="select" bind:value={$form.serviceName[i]}>
+							<option value="" disabled selected hidden>Wybierz przedmiot</option>
+							$: {#each service as service}
+							<option value={service.name}>{service.name}</option>
+							{/each}
+						</select>
+					</label>
+				{/each}
 
 				<label>
-					Nazwa przedmiotu
-					<select name="subjectName" id="subjectName" class="select" bind:value={$form.subjectName}>
-						<option value="" disabled selected hidden>Wybierz przedmiot</option>
-						$: {#each subjects as subject}
-							<option value={subject.name}>{subject.name}</option>
-						{/each}
-					</select>
-				</label>
-
-				<label>Typ umowy
-
-					<select name="contractTypeName" id="contractTypeName" class="select" bind:value={$form.contractTypeName}>
-						<option value="" disabled selected hidden>Wybierz typ umowy</option>
-						$: {#each contractTypes as contractType}
+					Typ umowy
+					<select
+						name="employeeName"
+						id="employeeName"
+						class="select"
+						bind:value={$form.employeeName}
+					>
+						<option value="" disabled selected hidden>Wybierz pracownika</option>
+						$: {#each contractType as contractType}
 							<option value={contractType.name}>{contractType.name}</option>
 						{/each}
 					</select>
 				</label>
-
-				<label>
-					Kategoria nauczyciela
-					<select name="categoryName" id="categoryName" class="select" bind:value={$form.categoryName}>
-						<option value="" disabled selected hidden>Wybierz kategorię</option>
-						$: {#each categories as category}
-							<option value={category.name}>{category.name}</option>
-						{/each}
-					</select>
-				</label>
-
-				<label>
-					Stawka godzinowa
-					<input
-						type="number"
-						name="hourlyRate"
-						class="input"
-						placeholder="Wpisz wartość"
-						id="hourlyRate"
-						autocomplete="off"
-						bind:value={$form.hourlyRate}
-					/>
-				</label>
-
-				<label>
-					Numer umowy
-					<input
-						type="text"
-						name="contractNumber"
-						class="input"
-						placeholder="Wpisz numer umowy"
-						id="contractNumber"
-						autocomplete="off"
-						bind:value={$form.contractNumber}
-					/>
-				</label>
+				
 				<button class="btn variant-filled" type="submit">Dodaj</button>
 			</div>
 		</form>

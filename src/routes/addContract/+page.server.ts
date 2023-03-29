@@ -5,21 +5,17 @@ import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
 const contractSchema = z.object({
-	teacherName: z.string().min(1),
-	subjectName: z.string().min(1),
-	contractTypeName: z.string().min(1),
-	categoryName: z.string().min(1),
-	hourlyRate: z.number().min(1),
-	contractNumber: z.string().min(1)
+	employeeName: z.string().nonempty(),
+	contractTypeName: z.string().nonempty(),
+	serviceName: z.array(z.string().nonempty())
 });
 
 export const load: PageServerLoad = async (event) => {
 	const form = await superValidate(event, contractSchema);
 	return {
-		teachers: await prisma.teachers.findMany(),
-		subjects: await prisma.subjects.findMany(),
-		contractTypes: await prisma.contractTypes.findMany(),
-		categories: await prisma.categories.findMany(),
+		employee: await prisma.employee.findMany(),
+		contractType: await prisma.contractType.findMany(),
+		service: await prisma.service.findMany(),
 		form
 	};
 };
@@ -35,32 +31,33 @@ export const actions: Actions = {
 		}
 		try {
 			console.log('created contract');
-			await prisma.contracts.create({
-				data: {
-					teacherName: form.data.teacherName,
-					subjectName: form.data.subjectName,
-					contractTypeName: form.data.contractTypeName,
-					categoryName: form.data.categoryName,
-					contractNumber: form.data.contractNumber,
-					hourlyRate: form.data.hourlyRate,
-					hoursPerMonth: {
-						createMany: {
-							data: [
-								{ month: 9 },
-								{ month: 10 },
-								{ month: 11 },
-								{ month: 12 },
-								{ month: 1 },
-								{ month: 2 },
-								{ month: 3 },
-								{ month: 4 },
-								{ month: 5 },
-								{ month: 6 }
-							]
-						}
-					}
-				}
+			console.log(
+				form.data.employeeName +
+					':' +
+					(await prisma.employee.findUnique({ where: { name: form.data.employeeName } }))?.id
+			);
+			console.log(
+				form.data.contractTypeName +
+					':' +
+					(await prisma.contractType.findUnique({ where: { name: form.data.contractTypeName } }))
+						?.id
+			);
+			form.data.serviceName.forEach(async (element) => {
+				console.log(
+					element + ':' + (await prisma.service.findUnique({ where: { name: element } }))
+				);
 			});
+			console.log(form.data);
+			// await prisma.contract.create({
+			// 	data: {
+			// 		employeeId: (
+			// 			await prisma.employee.findUnique({ where: { name: form.data.employeeName } })
+			// 		)?.id,
+			// 		contractTypeId: (
+			// 			await prisma.contractType.findUnique({ where: { name: form.data.contractTypeName } })
+			// 		)?.id
+			// 	}
+			// });
 		} catch (err) {
 			return fail(500, { message: 'Could not create subject' });
 		}

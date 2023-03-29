@@ -7,7 +7,7 @@
 	const { form, errors, enhance} = superForm(data.form, { 
 	  taintedMessage: "Czy na pewno chcesz opuścić stronę?", 
 	  validators: {
-		  contractTypeName: (contractTypeName) => (contractTypeName.length < 1 ? "Nazwa typu umowy nie może być pusta" : null)
+		  name: (name) => (name.length < 1 ? "Pole nie może być puste" : null)
 	  }
   });
   </script>
@@ -19,10 +19,10 @@
 				<h1 class="m-4">Nowy typ umowy</h1>
 					<label>
 						Nazwa typu umowy
-						<input type="text" name="contractTypeName" id="contractTypeName" class="input" bind:value={$form.contractTypeName}/>
+						<input type="text" name="name" id="name" class="input" bind:value={$form.name}/>
 						
-						{#if $errors.contractTypeName}
-						<small class="text-primary-400">{$errors.contractTypeName}</small>
+						{#if $errors.name}
+						<small class="text-primary-400">{$errors.name}</small>
 						{/if}
 					</label>
 				<button class="btn variant-filled" type="submit">Dodaj</button>

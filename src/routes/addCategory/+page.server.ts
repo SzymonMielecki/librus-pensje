@@ -5,7 +5,7 @@ import { prisma } from '$lib/server/prisma';
 import { superValidate } from 'sveltekit-superforms/server';
 
 const categorySchema = z.object({
-	categoryName: z.string().min(1)
+	name: z.string().min(1)
 });
 
 export const load: PageServerLoad = async (event) => {
@@ -22,9 +22,9 @@ export const actions: Actions = {
 			});
 		}
 		try {
-			await prisma.categories.create({
+			await prisma.category.create({
 				data: {
-					name: form.data.categoryName
+					name: form.data.name
 				}
 			});
 		} catch (err) {

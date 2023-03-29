@@ -7,7 +7,7 @@
   const { form, errors, enhance, constraints } = superForm(data.form, { 
 	taintedMessage: "Czy na pewno chcesz opuścić stronę?", 
 	validators: {
-		categoryName: (categoryName) => (categoryName.length < 1 ? "Nazwa kategorii nie może być pusta" : null)
+		name: (name) => (name.length < 1 ? "Nazwa kategorii nie może być pusta" : null)
 	}
 });
 </script>
@@ -19,10 +19,10 @@
 				<h1 class="m-4">Nowa kategoria nauczycielii</h1>
 					<label>
 						Nazwa kategorii
-						<input type="text" name="categoryName" id="categoryName" class="input" bind:value={$form.categoryName}/>
+						<input type="text" name="name" id="name" class="input" bind:value={$form.name}/>
 						
-						{#if $errors.categoryName}
-						<small class="text-primary-400">{$errors.categoryName}</small>
+						{#if $errors.name}
+						<small class="text-primary-400">{$errors.name}</small>
 						{/if}
 					</label>
 				<button class="btn variant-filled" type="submit">Dodaj</button>
