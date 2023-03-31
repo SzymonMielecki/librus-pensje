@@ -39,13 +39,13 @@ model Contract {
   id              String            @id @default(uuid())
   employee        Employee          @relation(fields: [employeeId], references: [id])
   employeeId      String
-  contractType    ContractType?     @relation(fields: [contractTypeId], references: [id])
-  contractTypeId  String?
+  number          String
+  contractType    ContractType      @relation(fields: [contractTypeId], references: [id])
+  contractTypeId  String
   fixedSalary     Float?
   SalaryType      SalaryType?       @relation(fields: [salaryTypeId], references: [id])
   salaryTypeId    String?
   ContractService ContractService[]
-  number          String
 }
 
 model Category {
@@ -74,12 +74,12 @@ model ContractService {
   contractId             String
   service                Service              @relation(fields: [serviceId], references: [id])
   serviceId              String
-  salary                 Float
-  salaryType             SalaryType           @relation(fields: [salaryTypeId], references: [id])
-  salaryTypeId           String
+  salary                 Float?
+  salaryType             SalaryType?          @relation(fields: [salaryTypeId], references: [id])
+  salaryTypeId           String?
   category               Category             @relation(fields: [categoryId], references: [id])
   categoryId             String
   ContractEmployeeType   ContractEmployeeType @relation(fields: [contractEmployeeTypeId], references: [id])
   contractEmployeeTypeId String
-  hoursMonths            HoursMonths[]
+  HoursMonths            HoursMonths[]
 }

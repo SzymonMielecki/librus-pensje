@@ -6,8 +6,19 @@ import { z } from 'zod';
 
 const contractSchema = z.object({
 	employeeName: z.string().nonempty(),
+	contractNumber: z.string().nonempty(),
 	contractTypeName: z.string().nonempty(),
-	serviceName: z.array(z.string().nonempty())
+	fixedSalary: z.number().nonnegative(),
+	salaryTypeName: z.string().nonempty(),
+	service: z.array(
+		z.object({
+			name: z.string().nonempty(),
+			salary: z.number().nonnegative(),
+			salaryTypeName: z.string().nonempty(),
+			categoryName: z.string().nonempty(),
+			contractEmployeeTypeName: z.string().nonempty()
+		})
+	)
 });
 
 export const load: PageServerLoad = async (event) => {
@@ -16,6 +27,9 @@ export const load: PageServerLoad = async (event) => {
 		employee: await prisma.employee.findMany(),
 		contractType: await prisma.contractType.findMany(),
 		service: await prisma.service.findMany(),
+		salaryType: await prisma.salaryType.findMany(),
+		category: await prisma.category.findMany(),
+		contractEmployeeType: await prisma.contractEmployeeType.findMany(),
 		form
 	};
 };
@@ -31,33 +45,62 @@ export const actions: Actions = {
 		}
 		try {
 			console.log('created contract');
-			console.log(
-				form.data.employeeName +
-					':' +
-					(await prisma.employee.findUnique({ where: { name: form.data.employeeName } }))?.id
-			);
-			console.log(
-				form.data.contractTypeName +
-					':' +
-					(await prisma.contractType.findUnique({ where: { name: form.data.contractTypeName } }))
-						?.id
-			);
-			form.data.serviceName.forEach(async (element) => {
-				console.log(
-					element + ':' + (await prisma.service.findUnique({ where: { name: element } }))
-				);
+			await prisma.contract.create({
+				data: {
+					employeeId: (
+						await prisma.employee.findUnique({ where: { name: form.data.employeeName } })
+					)?.id,
+					contractTypeId: (
+						await prisma.contractType.findUnique({ where: { name: form.data.contractTypeName } })
+					)?.id,
+					fixedSalary: form.data.fixedSalary,
+					salaryTypeId: (
+						await prisma.salaryType.findUnique({ where: { name: form.data.salaryTypeName } })
+					)?.id,
+
+					ContractService: {
+						create: {
+							serviceId: (
+								await prisma.service.findUnique({ where: { name: form.data.service[0].name } })
+							)?.id,
+							salary: form.data.service[0].salary,
+							salaryTypeId: (
+								await prisma.salaryType.findUnique({
+									where: { name: form.data.service[0].salaryTypeName }
+								})
+							)?.id,
+							categoryId: (
+								await prisma.category.findUnique({
+									where: { name: form.data.service[0].categoryName }
+								})
+							)?.id,
+							contractEmployeeTypeId: (
+								await prisma.contractEmployeeType.findUnique({
+									where: { name: form.data.service[0].contractEmployeeTypeName }
+								})
+							)?.id,
+							HoursMonths: {
+								createMany: {
+									data: [
+										{ month: 1 },
+										{ month: 2 },
+										{ month: 3 },
+										{ month: 4 },
+										{ month: 5 },
+										{ month: 6 },
+										{ month: 7 },
+										{ month: 8 },
+										{ month: 9 },
+										{ month: 10 },
+										{ month: 11 },
+										{ month: 12 }
+									]
+								}
+							}
+						}
+					}
+				}
 			});
-			console.log(form.data);
-			// await prisma.contract.create({
-			// 	data: {
-			// 		employeeId: (
-			// 			await prisma.employee.findUnique({ where: { name: form.data.employeeName } })
-			// 		)?.id,
-			// 		contractTypeId: (
-			// 			await prisma.contractType.findUnique({ where: { name: form.data.contractTypeName } })
-			// 		)?.id
-			// 	}
-			// });
 		} catch (err) {
 			return fail(500, { message: 'Could not create subject' });
 		}
