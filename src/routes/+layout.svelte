@@ -3,7 +3,7 @@
 	// import { handleSession } from '@lucia-auth/sveltekit/client'
 	import Heading from '$lib/heading.svelte';
 	import Drawer from '$lib/drawer.svelte';
-
+	import { AppShell } from '@skeletonlabs/skeleton';
 
 	// import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '../techni.postcss';
@@ -19,6 +19,10 @@
 	<link rel="icon" type="image/png" href="/favicon.png" />
 </svelte:head>
 
-<Drawer />
-<Heading />
-<slot />
+<AppShell>
+	<svelte:fragment slot="header">
+		<Heading />
+	</svelte:fragment>
+	<slot />
+	<Drawer />
+</AppShell>
