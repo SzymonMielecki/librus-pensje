@@ -21,15 +21,10 @@
 
 				<label>
 					Nazwisko i imię pracownika
-					<select
-						name="employeeName"
-						id="employeeName"
-						class="select"
-						bind:value={$form.employeeName}
-					>
+					<select name="employeeId" id="employeeId" class="select" bind:value={$form.employeeId}>
 						<option value="" disabled selected hidden>Wybierz pracownika</option>
 						$: {#each employee as employee}
-							<option value={employee.name}>{employee.name}</option>
+							<option value={employee.id}>{employee.name}</option>
 						{/each}
 					</select>
 				</label>
@@ -49,14 +44,14 @@
 				<label>
 					Typ umowy
 					<select
-						name="contractTypeName"
-						id="contractTypeName"
+						name="contractTypeId"
+						id="contractTypeId"
 						class="select"
-						bind:value={$form.contractTypeName}
+						bind:value={$form.contractTypeId}
 					>
 						<option value="" disabled selected hidden>Wybierz pracownika</option>
 						$: {#each contractType as contractType}
-							<option value={contractType.name}>{contractType.name}</option>
+							<option value={contractType.id}>{contractType.name}</option>
 						{/each}
 					</select>
 				</label>
@@ -77,14 +72,14 @@
 					<label>
 						Typ stawki
 						<select
-							name="salaryTypeName"
-							id="salaryTypeName"
+							name="salaryTypeId"
+							id="salaryTypeId"
 							class="select"
-							bind:value={$form.salaryTypeName}
+							bind:value={$form.salaryTypeId}
 						>
 							<option value="" disabled selected hidden>Wybierz pracownika</option>
 							$: {#each salaryType as salaryType}
-								<option value={salaryType.name}>{salaryType.name}</option>
+								<option value={salaryType.id}>{salaryType.name}</option>
 							{/each}
 						</select>
 					</label>
@@ -100,14 +95,14 @@
 					<label>
 						Nazwa usługi {i + 1}
 						<select
-							name="serviceName"
-							id="serviceName"
+							name="serviceId"
+							id="serviceId"
 							class="select"
-							bind:value={$form.service[i].name}
+							bind:value={$form.contractService[i].serviceId}
 						>
 							<option value="" disabled selected hidden>Wybierz przedmiot</option>
 							$: {#each service as service}
-								<option value={service.name}>{service.name}</option>
+								<option value={service.id}>{service.name}</option>
 							{/each}
 						</select>
 					</label>
@@ -120,21 +115,21 @@
 								id="salary"
 								class="input"
 								placeholder="Uzupełnij stawkę godzinową"
-								bind:value={$form.service[i].salary}
+								bind:value={$form.contractService[i].salary}
 							/>
 						</label>
 
 						<label>
 							Typ stawki
 							<select
-								name="salaryTypeName"
-								id="salaryTypeName"
+								name="salaryTypeId"
+								id="salaryTypeId"
 								class="select"
-								bind:value={$form.service[i].salaryTypeName}
+								bind:value={$form.contractService[i].salaryTypeId}
 							>
 								<option value="" disabled selected hidden>Wybierz pracownika</option>
 								$: {#each salaryType as salaryType}
-									<option value={salaryType.name}>{salaryType.name}</option>
+									<option value={salaryType.id}>{salaryType.name}</option>
 								{/each}
 							</select>
 						</label>
@@ -143,14 +138,14 @@
 					<label>
 						Kategoria {i + 1}
 						<select
-							name="categoryName"
-							id="categoryName"
+							name="categoryId"
+							id="categoryId"
 							class="select"
-							bind:value={$form.service[i].categoryName}
+							bind:value={$form.contractService[i].categoryId}
 						>
 							<option value="" disabled selected hidden>Wybierz kategorię</option>
 							$: {#each category as category}
-								<option value={category.name}>{category.name}</option>
+								<option value={category.id}>{category.name}</option>
 							{/each}
 						</select>
 					</label>
@@ -158,14 +153,14 @@
 					<label>
 						Stanowisko {i + 1}
 						<select
-							name="contractEmployeeTypeName"
-							id="contractEmployeeTypeName"
+							name="contractEmployeeTypeId"
+							id="contractEmployeeTypeId"
 							class="select"
-							bind:value={$form.service[i].contractEmployeeTypeName}
+							bind:value={$form.contractService[i].contractEmployeeTypeId}
 						>
 							<option value="" disabled selected hidden>Wybierz stanowisko</option>
 							$: {#each contractEmployeeType as contractEmployeeType}
-								<option value={contractEmployeeType.name}>{contractEmployeeType.name}</option>
+								<option value={contractEmployeeType.id}>{contractEmployeeType.name}</option>
 							{/each}
 						</select>
 					</label>
