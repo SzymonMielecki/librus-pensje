@@ -44,7 +44,9 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^4.11.0",
+		"dotenv": "^16.0.3",
 		"lucide": "^0.125.0",
-		"lucide-svelte": "^0.125.0"
+		"lucide-svelte": "^0.125.0",
+		"mysql2": "^3.2.4"
 	}
 }

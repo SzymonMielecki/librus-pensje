@@ -13,27 +13,53 @@
 		</button>
 		<ul class="list flex flex-col items-center gap-4 w-full">
 			<li class="w-full">
-				<a href="/" class="btn gap-4 variant-ringed w-full hover:variant-ghost" on:click={drawerClose}>
+				<a
+					href="/"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
 					<Home />
 					Strona głowna
 				</a>
 			</li>
 			<li class="w-full">
-				<a href="/monthly" class="btn gap-4 variant-ringed w-full hover:variant-ghost" on:click={drawerClose}>
+				<a
+					href="/monthly"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
 					<Calendar />
 					Widok miesięczny
 				</a>
 			</li>
 			<li class="w-full">
-				<a href="/addCategory" class="btn gap-4 variant-ringed w-full hover:variant-ghost" on:click={drawerClose}>
+				<a
+					href="/addCategory"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
 					<Users />
 					Dodaj kategorię
 				</a>
 			</li>
 			<li class="w-full">
-				<a href="/addContract" class="btn gap-4 variant-ringed w-full hover:variant-ghost" on:click={drawerClose}>
+				<a
+					href="/addContract"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
 					<Edit />
 					Dodaj umowę
+				</a>
+			</li>
+			<li class="w-full">
+				<a
+					href="/addContractService"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
+					<Newspaper />
+					Dodaj usługę dla Umowy
 				</a>
 			</li>
 		</ul>
