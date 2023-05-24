@@ -24,12 +24,12 @@
 			</li>
 			<li class="w-full">
 				<a
-					href="/monthly"
+					href="/contractsView"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
 					on:click={drawerClose}
 				>
 					<Calendar />
-					Widok miesięczny
+					Widok wszystkich umów
 				</a>
 			</li>
 			<li class="w-full">
@@ -40,6 +40,36 @@
 				>
 					<Users />
 					Dodaj kategorię
+				</a>
+			</li>
+			<li class="w-full">
+				<a
+					href="/addEmployeeType"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
+					<Users />
+					Dodaj typ pracownika
+				</a>
+			</li>
+			<li class="w-full">
+				<a
+					href="/addEmployee"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
+					<Users />
+					Dodaj pracownika
+				</a>
+			</li>
+			<li class="w-full">
+				<a
+					href="/addService"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
+					<Edit />
+					Dodaj usługę
 				</a>
 			</li>
 			<li class="w-full">

@@ -2,7 +2,8 @@
 	import Heading from '$lib/heading.svelte';
 	import Drawer from '$lib/drawer.svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import '../techni.postcss';
+	import '@skeletonlabs/skeleton/themes/theme-rocket.css';
+	// import '../techni.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 </script>

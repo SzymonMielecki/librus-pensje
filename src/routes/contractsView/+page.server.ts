@@ -4,15 +4,28 @@ import { prisma } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
-	const hoursMonths = await prisma.hoursMonths.findMany();
-	const contracts = await prisma.contracts.findMany({
-		include: {
-			hoursPerMonth: true
+	const contracts = await prisma.contract.findMany({
+		select: {
+			id: true,
+			number: true,
+			employee: true,
+			contractType: true,
+			fixedSalary: true,
+			salaryType: true,
+			contractService: {
+				select: {
+					salary: true,
+					salaryType: true,
+					category: true,
+					contractEmployeeType: true,
+					service: true,
+					hoursMonths: true
+				}
+			}
 		}
 	});
 	return {
-		contracts: contracts,
-		hoursMonths: hoursMonths
+		contracts: contracts
 	};
 };
 
@@ -23,7 +36,7 @@ export const actions: Actions = {
 			return fail(400, { message: 'Missing id parameter' });
 		}
 		try {
-			await prisma.contracts.delete({
+			await prisma.contractService.delete({
 				where: {
 					id: id
 				}
