@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import { Menu, Home, Calendar, Newspaper, Users, Edit } from 'lucide-svelte';
+	import { Menu, Home, Calendar, Newspaper, Users, Edit, ListPlus, Contact, Album, Book } from 'lucide-svelte';
 	function drawerClose(): void {
 		drawerStore.close();
 	}
@@ -38,7 +38,7 @@
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
 					on:click={drawerClose}
 				>
-					<Users />
+					<Album />
 					Dodaj kategorię
 				</a>
 			</li>
@@ -48,7 +48,7 @@
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
 					on:click={drawerClose}
 				>
-					<Users />
+					<Contact />
 					Dodaj typ pracownika
 				</a>
 			</li>
@@ -74,11 +74,21 @@
 			</li>
 			<li class="w-full">
 				<a
+					href="/addContractType"
+					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
+					on:click={drawerClose}
+				>
+					<Book />
+					Dodaj typ umowy
+				</a>
+			</li>
+			<li class="w-full">
+				<a
 					href="/addContract"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
 					on:click={drawerClose}
 				>
-					<Edit />
+					<ListPlus />
 					Dodaj umowę
 				</a>
 			</li>
