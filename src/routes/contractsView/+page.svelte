@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import Disclosure from '$lib/ui/disclosure.svelte';
-	export let data: PageData;
+	export let data
 	const d = new Date();
 	let selectedMonth: string = String(d.getMonth() + 1);
 	$: ({ contracts } = data);

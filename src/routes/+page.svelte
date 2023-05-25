@@ -1,4 +1,4 @@
-<div class="pt-16 grid justify-items-center text-center overflow-y-scroll overflow-x-hidden">
+<div class="pt-16 grid justify-items-center text-center ">
 	<h1>
 		<span
 			class="bg-gradient-to-r from-surface-400 to-primary-300 box-decoration-clone bg-clip-text text-7xl font-bold text-transparent"
