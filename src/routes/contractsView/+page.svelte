@@ -1,35 +1,19 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import Disclosure from '$lib/ui/disclosure.svelte';
 	export let data: PageData;
 	const d = new Date();
 	let selectedMonth: string = String(d.getMonth() + 1);
 	$: ({ contracts } = data);
-	$: console.log(selectedMonth);
 	$: console.log(contracts);
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<h1 class="text-2xl font-bold">Widok miesięczny</h1>
-	<select name="month" id="" class="select" bind:value={selectedMonth}>
-		<option value="1">Styczeń</option>
-		<option value="2">Luty</option>
-		<option value="3">Marzec</option>
-		<option value="4">Kwiecień</option>
-		<option value="5">Maj</option>
-		<option value="6">Czerwiec</option>
-		<option value="7">Lipiec</option>
-		<option value="8">Sierpień</option>
-		<option selected value="9">Wrzesień</option>
-		<option value="10">Październik</option>
-		<option value="11">Listopad</option>
-		<option value="12">Grudzień</option>
-	</select>
 	<div class="w-full">
 		{#each contracts as contract}
 			<div class="card w-auto">
-				<Accordion>
-					<AccordionItem>
+					<Disclosure>
 						<svelte:fragment slot="summary">
 							<h2>Umowa nr. {contract.number}</h2>
 							<a href="/contract/{contract.id}">Zobacz więcej</a>
@@ -45,7 +29,7 @@
 									{contract.contractType.name}
 								</div>
 								<div class="card p-2 col-span-2">
-									<AccordionItem>
+									<Disclosure>
 										<svelte:fragment slot="summary">
 											<h4>Przedmioty</h4>
 										</svelte:fragment>
@@ -53,7 +37,7 @@
 											<div class="grid">
 												{#each contract.contractService as contractService}
 													<div class="card">
-														<AccordionItem>
+														<Disclosure>
 															<svelte:fragment slot="summary">
 																{contractService.service.name}
 															</svelte:fragment>
@@ -75,12 +59,12 @@
 																	</div>
 																</div>
 															</svelte:fragment>
-														</AccordionItem>
+														</Disclosure>
 													</div>
 												{/each}
 											</div>
 										</svelte:fragment>
-									</AccordionItem>
+									</Disclosure>
 								</div>
 								{#if contract.fixedSalary && contract.salaryType}
 									<div class="card p-2">
@@ -94,8 +78,7 @@
 								{/if}
 							</div>
 						</svelte:fragment>
-					</AccordionItem>
-				</Accordion>
+					</Disclosure>
 			</div>
 		{/each}
 		<!-- <div class="table-container">

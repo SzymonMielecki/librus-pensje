@@ -1,22 +1,15 @@
 <script lang="ts">
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import { Menu, Home, Calendar, Newspaper, Users, Edit, ListPlus, Contact, Album, Book } from 'lucide-svelte';
-	function drawerClose(): void {
-		drawerStore.close();
-	}
+	import { Home, Calendar, Newspaper, Users, Edit, ListPlus, Contact, Album, Book } from 'lucide-svelte';
 </script>
 
-<Drawer width="w-auto">
+<div class="hidden">
 	<div class="p-4 h-full w-full">
-		<button on:click={drawerClose}>
-			<Menu />
-		</button>
 		<ul class="list flex flex-col items-center gap-4 w-full">
 			<li class="w-full">
 				<a
 					href="/"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Home />
 					Strona głowna
@@ -26,7 +19,7 @@
 				<a
 					href="/contractsView"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Calendar />
 					Widok wszystkich umów
@@ -36,7 +29,7 @@
 				<a
 					href="/addCategory"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Album />
 					Dodaj kategorię
@@ -46,7 +39,7 @@
 				<a
 					href="/addEmployeeType"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Contact />
 					Dodaj typ pracownika
@@ -56,7 +49,7 @@
 				<a
 					href="/addEmployee"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Users />
 					Dodaj pracownika
@@ -66,7 +59,7 @@
 				<a
 					href="/addService"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Edit />
 					Dodaj usługę
@@ -76,7 +69,7 @@
 				<a
 					href="/addContractType"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Book />
 					Dodaj typ umowy
@@ -86,7 +79,7 @@
 				<a
 					href="/addContract"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<ListPlus />
 					Dodaj umowę
@@ -96,7 +89,7 @@
 				<a
 					href="/addContractService"
 					class="btn gap-4 variant-ringed w-full hover:variant-ghost"
-					on:click={drawerClose}
+				
 				>
 					<Newspaper />
 					Dodaj usługę dla Umowy
@@ -104,4 +97,4 @@
 			</li>
 		</ul>
 	</div>
-</Drawer>
+</div>
