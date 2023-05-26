@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Sidebar from '$lib/sidebar.svelte';
-	// import '../techni.postcss';
+	import Heading from '$lib/heading.svelte';
 	import '../app.postcss';
 </script>
 
@@ -13,7 +13,7 @@
 <div class="flex">
 	<Sidebar />
 	<div class="flex-grow">
-
+		<Heading />
 		<slot />
 	</div>
 </div>

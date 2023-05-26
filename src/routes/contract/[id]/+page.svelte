@@ -1,31 +1,22 @@
 <script lang="ts">
-	import Table from '$lib/ui/table.svelte';
+	import { Plus } from 'lucide-svelte'
 	export let data;
 	const monthList = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
 	$: ({ contract } = data);
 	let contractServices = contract?.contractService ? contract?.contractService : [];
 	console.log(contractServices[0])
-	let items = Array.from({ length: 12 }, (_, i) => ({
-		type: 'Wynagrodzenie/Ilośc godzin',
-		lesson: 'Grafika',
-		september: i + 1,
-		october: i + 1,
-		november: i + 1,
-		december: i + 1,
-		january: i + 1,
-		february: i + 1,
-		march: i + 1,
-		april: i + 1,
-		may: i + 1,
-		june: i + 1,
-		july: i + 1,
-		august: i + 1
-	}));
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<div class="w-full border border-subtle rounded-3xl overflow-hidden">
 		{#if contract}
+		<h1>
+			Umowa numer {contract.number} dla {contract.employee.name}
+		</h1>
+		<a href="/addcontractService?contractId={contract.id}">
+			<Plus/>
+			Dodaj usługi do umowy
+		</a>
 		<table class="table">
 			<thead>
 				<tr>

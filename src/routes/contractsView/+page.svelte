@@ -1,135 +1,47 @@
 <script lang="ts">
-	import Disclosure from '$lib/ui/disclosure.svelte';
+	import Table from '$lib/ui/table.svelte';
+	import Tabs from '$lib/ui/tabs.svelte';
+	import { Plus } from 'lucide-svelte'
 	export let data
-	const d = new Date();
-	let selectedMonth: string = String(d.getMonth() + 1);
-	$: ({ contracts } = data);
-	$: console.log(contracts);
+	const d = new Date().getMonth()+1;
+	console.log(d)
+	const contracts = data.contracts
+	console.log(contracts, 'contracts');
+	const contract = {
+		employeeName: contracts[0].employee.name,
+		number: contracts[0].number,
+		serviceCount: contracts[0].contractService.length,
+		thisMonthsPay: contracts[0].contractService.reduce((acc, curr) => acc + Number(curr.salary), 0),
+	}
+	console.log(contract, 'contract');
+	let selected: string[] = [];
+
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
-	<h1 class="text-2xl font-bold">Widok miesięczny</h1>
+	<div class="flex flex-row gap-6">
+		<h1 class="text-2xl font-bold">Widok miesięczny</h1> 
+		<a class="btn" href="/addContract">
+			<Plus/>
+			Dodaj umowę
+		</a>
+	</div>
 	<div class="w-full">
-		{#each contracts as contract}
-			<div class="card w-auto">
-					<Disclosure>
-						<svelte:fragment slot="summary">
-							<h2>Umowa nr. {contract.number}</h2>
-							<a href="/contract/{contract.id}">Zobacz więcej</a>
-						</svelte:fragment>
-						<svelte:fragment slot="content">
-							<div class="grid grid-cols-2 gap-4">
-								<div class="card p-2">
-									<h4>Nauczyciel</h4>
-									{contract.employee.name}
-								</div>
-								<div class="card p-2">
-									<h4>Typ umowy</h4>
-									{contract.contractType.name}
-								</div>
-								<div class="card p-2 col-span-2">
-									<Disclosure>
-										<svelte:fragment slot="summary">
-											<h4>Przedmioty</h4>
-										</svelte:fragment>
-										<svelte:fragment slot="content">
-											<div class="grid">
-												{#each contract.contractService as contractService}
-													<div class="card">
-														<Disclosure>
-															<svelte:fragment slot="summary">
-																{contractService.service.name}
-															</svelte:fragment>
-															<svelte:fragment slot="content">
-																<div class="grid grid-cols-2">
-																	<div class="card p-2">
-																		<h4>Stawka godzinowa</h4>
-																		{contractService.salary}
-																	</div>
-																	<div class="card p-2">
-																		<h4>
-																			Wynagrodzenie za miesiąc {selectedMonth}:
-																		</h4>
-																		{Number(
-																			contractService.hoursMonths.find(
-																				(element) => element.month === Number(selectedMonth)
-																			)?.hoursWorked
-																		) * Number(contractService.salary)}
-																	</div>
-																</div>
-															</svelte:fragment>
-														</Disclosure>
-													</div>
-												{/each}
-											</div>
-										</svelte:fragment>
-									</Disclosure>
-								</div>
-								{#if contract.fixedSalary && contract.salaryType}
-									<div class="card p-2">
-										<h4>Wynagrodzenie stałe</h4>
-										{contract.fixedSalary}
-									</div>
-									<div class="card p-2">
-										<h4>Typ Wynagrodzenia</h4>
-										{contract.salaryType.name}
-									</div>
-								{/if}
-							</div>
-						</svelte:fragment>
-					</Disclosure>
-			</div>
-		{/each}
-		<!-- <div class="table-container">
-			<table class="table table-hover table-compact">
-				<thead>
-					<tr>
-						<th>Nazwisko i Imię</th>
-						<th>Numer Umowy</th>
-						<th>Typ Umowy</th>
-						<th>Kategoria nauczyciela</th>
-						<th>Przedmiot</th>
-						<th>Stawka Godzinowa</th>
-						<th>Ilość lekcji w miesiącu</th>
-						<th>Wynagrodzenie miesięczne Netto</th>
-						<th>Usuń umowę</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each contracts as contract, i}
-						<tr>
-							<td><a href="/teacher/{contract.teacherName}">{contract.teacherName}</a></td>
-							<td>{contract.contractNumber}</td>
-							<td>{contract.contractTypeName}</td>
-							<td>{contract.categoryName}</td>
-							<td>{contract.subjectName}</td>
-							<td>{Number(contract.hourlyRate)}</td>
-							<td
-								>{Number(
-									contract.hoursPerMonth.find((element) => element.month === Number(selectedMonth))
-										?.hoursWorked
-								)}</td
-							>
-							<td
-								>{Number(
-									contract.hoursPerMonth.find((element) => element.month === Number(selectedMonth))
-										?.hoursWorked
-								) * Number(contract.hourlyRate)}</td
-							>
-							<td>
-								<form
-									action="?/deleteContract&id={contract.id}"
-									method="POST"
-									class=""
-									name="deleteForm"
-								>
-									<button type="submit"><Trash /></button>
-								</form>
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div> -->
+		<Table
+			items={contracts}
+			id="id"
+			tableColumns={Object.keys(contract).map((key) => ({
+				displayName: key
+					.replace(/_/g, ' ')
+					.replace(/([A-Z])/g, ' $1')
+					.replace(/^./, (str) => str.toUpperCase()),
+				name: key
+			}))}
+			bind:selected
+			selectable
+			columnsEditable
+		>
+
+		</Table>
 	</div>
 </div>
