@@ -6,10 +6,16 @@
 
 	export let data
 
+	// let employee = data.employee.map((employee) => {
+	// 	return {
+	// 		value: employee.id,
+	// 		label: employee.name
+	// 	}
+	// })
 	let employee = data.employee.map((employee) => {
 		return {
-			value: employee.id,
-			label: employee.name
+			id: employee.id,
+			name: employee.name
 		}
 	})
 	let contractType = data.contractType.map((contractType) => {
@@ -52,12 +58,25 @@
 
 		<label class="input-label w-full" for="employeeId">
 				Nazwisko i imię pracownika
-			<Combobox
+			<select
+				name="employeeId"
+				id="employeeId"
+				class="input w-full"
+				bind:value={$form.employeeId}
+			>
+				<option value="" disabled selected hidden 
+				class="text-base-950 dark:text-base-50 text-sm font-medium"
+				>Wybierz pracownika</option>
+				$: {#each employee as employee}
+					<option value={employee.id}>{employee.name}</option>
+				{/each}
+			</select>
+			<!-- <Combobox
 				id="employeeId"
 				placeholder="Wybierz pracownika"
 				items={employee}
 				bind:value={$form.employeeId}
-			/>
+			/> -->
 		</label>
 
 		<label class="input-label w-full">

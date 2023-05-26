@@ -9,7 +9,7 @@ const schema = z.object({
 	contractNumber: z.string().nonempty(),
 	contractTypeId: z.string().nonempty(),
 	fixedSalary: z.number().nonnegative(),
-	salaryTypeId: z.string().nonempty()
+	salaryTypeId: z.string()
 });
 
 export const load: PageServerLoad = async (event) => {
