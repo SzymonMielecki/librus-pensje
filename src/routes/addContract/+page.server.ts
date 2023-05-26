@@ -25,8 +25,10 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, schema);
+		console.log(form);
+		console.log(form.data);
+		if (!form.valid) return fail(400, { message: 'Invalid form data' });
 		try {
-			console.log(form.data);
 			await prisma.contract.create({
 				data: {
 					employeeId: form.data.employeeId,

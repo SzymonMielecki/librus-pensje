@@ -1,14 +1,15 @@
 <script lang='ts'>
-  import { superForm } from "sveltekit-superforms/client";
+	import { superForm } from "sveltekit-superforms/client";
 
-  export let data
+	export let data
 
-  const { form, errors, enhance, constraints } = superForm(data.form, { 
-	taintedMessage: "Czy na pewno chcesz opuścić stronę?", 
-	validators: {
-		name: (name) => (name.length < 1 ? "Nazwa kategorii nie może być pusta" : null)
-	}
-});
+	const { form, errors, enhance, constraints } = superForm(data.form, { 
+		taintedMessage: "Czy na pewno chcesz opuścić stronę?", 
+		validators: {
+			name: (name) => (name.length < 1 ? "Nazwa kategorii nie może być pusta" : null)
+		}
+	});
+
 </script>
 
 <div class="grid place-content-center h-full w-full">
