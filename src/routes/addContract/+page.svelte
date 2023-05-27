@@ -83,11 +83,11 @@
 			Numer umowy
 			<input
 				type="text"
-				name="contractNumber"
-				id="contractNumber"
+				name="number"
+				id="number"
 				class="input"
 				placeholder="Uzupełnij numer umowy"
-				bind:value={$form.contractNumber}
+				bind:value={$form.number}
 			/>
 		</label>
 

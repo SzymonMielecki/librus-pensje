@@ -3,6 +3,7 @@ import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
 import { prisma } from '$lib/server/prisma';
 import { superValidate } from 'sveltekit-superforms/server';
+import { createContractType } from '$lib/server/services/contractType';
 
 const contractTypeSchema = z.object({
 	name: z.string().min(1)
@@ -22,11 +23,7 @@ export const actions: Actions = {
 			});
 		}
 		try {
-			await prisma.contractType.create({
-				data: {
-					name: form.data.name
-				}
-			});
+			createContractType(form.data);
 		} catch (err) {
 			return fail(500, { message: 'Could not create contract type' });
 		}

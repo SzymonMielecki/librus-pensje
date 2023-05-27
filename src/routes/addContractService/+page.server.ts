@@ -3,15 +3,17 @@ import { prisma } from '$lib/server/prisma';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
+import { getAllCategories } from '$lib/server/services/category';
+import { createContractService } from '$lib/server/services/contractService';
 
 const schema = z.object({
 	contractId: z.string().nonempty(),
 	serviceId: z.string().nonempty(),
 	salary: z.number().nonnegative(),
-	salaryTypeId: z.string().nonempty(),
+	salaryTypeId: z.string(),
 	categoryId: z.string().nonempty(),
 	contractEmployeeTypeId: z.string().nonempty(),
-	hoursMounts: z.array(
+	hoursMonths: z.array(
 		z.object({
 			month: z.number().nonnegative(),
 			hoursWorked: z.number().nonnegative()
@@ -19,7 +21,7 @@ const schema = z.object({
 	)
 });
 
-const hoursMounts = [
+const hoursMonths = [
 	{ month: 1, hoursWorked: 0 },
 	{ month: 2, hoursWorked: 0 },
 	{ month: 3, hoursWorked: 0 },
@@ -40,7 +42,7 @@ export const load: PageServerLoad = async (event) => {
 		contract: await prisma.contract.findMany(),
 		service: await prisma.service.findMany(),
 		salaryType: await prisma.salaryType.findMany(),
-		category: await prisma.category.findMany(),
+		category: getAllCategories(),
 		contractEmployeeType: await prisma.contractEmployeeType.findMany(),
 		uop: await prisma.contractType.findUnique({ where: { name: 'Umowa o Pracę' } }),
 		form
@@ -60,11 +62,12 @@ export const actions: Actions = {
 					contractEmployeeTypeId: form.data.contractEmployeeTypeId,
 					hoursMonths: {
 						createMany: {
-							data: hoursMounts
+							data: hoursMonths
 						}
 					}
 				}
 			});
+			// createContractService(form.data, hoursMonths);
 		} catch (err) {
 			return fail(500, { message: 'Could not create subject' });
 		}

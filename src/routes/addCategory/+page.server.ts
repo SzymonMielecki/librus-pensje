@@ -1,8 +1,8 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
-import { prisma } from '$lib/server/prisma';
 import { superValidate } from 'sveltekit-superforms/server';
+import { createCategory } from '$lib/server/services/category';
 
 const categorySchema = z.object({
 	name: z.string().min(1)
@@ -22,11 +22,7 @@ export const actions: Actions = {
 			});
 		}
 		try {
-			await prisma.category.create({
-				data: {
-					name: form.data.name
-				}
-			});
+			createCategory(form.data);
 		} catch (err) {
 			return fail(500, { message: 'Could not create contract type' });
 		}
