@@ -1,18 +1,17 @@
-import { prisma } from '$lib/server/prisma';
-import type { Prisma } from '@prisma/client';
+import { db } from '$lib/server/db';
+import { eq } from 'drizzle-orm';
+import { category } from '../../../schema';
 
 export function getAllCategories() {
-	return prisma.category.findMany();
+	return db.query.category.findMany();
 }
 
 export function getCategoryById(id: string) {
-	return prisma.category.findUnique({
-		where: { id: id }
+	return db.query.category.findFirst({
+		where: eq(category.id, id)
 	});
 }
 
-export function createCategory(data: Prisma.CategoryCreateArgs['data']) {
-	return prisma.category.create({
-		data: data
-	});
+export function createCategory(data: any) {
+	return db.insert(category).values(data).execute();
 }

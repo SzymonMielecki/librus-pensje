@@ -1,0 +1,403 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "Category": {
+      "name": "Category",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "Category_name_key": {
+          "name": "Category_name_key",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {}
+    },
+    "Contract": {
+      "name": "Contract",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "employeeId": {
+          "autoincrement": false,
+          "name": "employeeId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "number": {
+          "autoincrement": false,
+          "name": "number",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contractTypeId": {
+          "autoincrement": false,
+          "name": "contractTypeId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fixedSalary": {
+          "autoincrement": false,
+          "name": "fixedSalary",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "salaryTypeId": {
+          "autoincrement": false,
+          "name": "salaryTypeId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "Contract_contractTypeId_idx": {
+          "name": "Contract_contractTypeId_idx",
+          "columns": [
+            "contractTypeId"
+          ],
+          "isUnique": false
+        },
+        "Contract_employeeId_idx": {
+          "name": "Contract_employeeId_idx",
+          "columns": [
+            "employeeId"
+          ],
+          "isUnique": false
+        },
+        "Contract_salaryTypeId_idx": {
+          "name": "Contract_salaryTypeId_idx",
+          "columns": [
+            "salaryTypeId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {}
+    },
+    "ContractEmployeeType": {
+      "name": "ContractEmployeeType",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "ContractEmployeeType_name_key": {
+          "name": "ContractEmployeeType_name_key",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {}
+    },
+    "ContractService": {
+      "name": "ContractService",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "contractId": {
+          "autoincrement": false,
+          "name": "contractId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "serviceId": {
+          "autoincrement": false,
+          "name": "serviceId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "salary": {
+          "autoincrement": false,
+          "name": "salary",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "salaryTypeId": {
+          "autoincrement": false,
+          "name": "salaryTypeId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "categoryId": {
+          "autoincrement": false,
+          "name": "categoryId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contractEmployeeTypeId": {
+          "autoincrement": false,
+          "name": "contractEmployeeTypeId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "ContractService_categoryId_idx": {
+          "name": "ContractService_categoryId_idx",
+          "columns": [
+            "categoryId"
+          ],
+          "isUnique": false
+        },
+        "ContractService_contractEmployeeTypeId_idx": {
+          "name": "ContractService_contractEmployeeTypeId_idx",
+          "columns": [
+            "contractEmployeeTypeId"
+          ],
+          "isUnique": false
+        },
+        "ContractService_contractId_idx": {
+          "name": "ContractService_contractId_idx",
+          "columns": [
+            "contractId"
+          ],
+          "isUnique": false
+        },
+        "ContractService_salaryTypeId_idx": {
+          "name": "ContractService_salaryTypeId_idx",
+          "columns": [
+            "salaryTypeId"
+          ],
+          "isUnique": false
+        },
+        "ContractService_serviceId_idx": {
+          "name": "ContractService_serviceId_idx",
+          "columns": [
+            "serviceId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {}
+    },
+    "ContractType": {
+      "name": "ContractType",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "ContractType_name_key": {
+          "name": "ContractType_name_key",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {}
+    },
+    "Employee": {
+      "name": "Employee",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "Employee_name_key": {
+          "name": "Employee_name_key",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {}
+    },
+    "HoursMonths": {
+      "name": "HoursMonths",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "month": {
+          "autoincrement": false,
+          "name": "month",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hoursWorked": {
+          "autoincrement": false,
+          "name": "hoursWorked",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractServiceId": {
+          "autoincrement": false,
+          "name": "contractServiceId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "HoursMonths_contractServiceId_idx": {
+          "name": "HoursMonths_contractServiceId_idx",
+          "columns": [
+            "contractServiceId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {}
+    },
+    "SalaryType": {
+      "name": "SalaryType",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "SalaryType_name_key": {
+          "name": "SalaryType_name_key",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {}
+    },
+    "Service": {
+      "name": "Service",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "Service_name_key": {
+          "name": "Service_name_key",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

@@ -15,7 +15,7 @@
 	}
 	console.log(contract, 'contract');
 	let selected: string[] = [];
-
+	
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
