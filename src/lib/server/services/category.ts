@@ -1,4 +1,4 @@
-import { db } from '$lib/server/db';
+import { db } from '../../../db/db';
 import { eq } from 'drizzle-orm';
 import { category } from '../schema';
 
@@ -13,5 +13,5 @@ export function getCategoryById(id: string) {
 }
 
 export function createCategory(data: any) {
-	// return db.
+	db.insert(category).values(data).execute();
 }
