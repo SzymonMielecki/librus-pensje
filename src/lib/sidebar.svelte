@@ -1,6 +1,14 @@
 <script>
 	import { scale, fly, crossfade } from 'svelte/transition';
-	import { HeartOff, Home, ScrollText, SidebarClose, SidebarOpen, Star } from 'lucide-svelte';
+	import {
+		HeartOff,
+		Home,
+		ScrollText,
+		SidebarClose,
+		SidebarOpen,
+		Star,
+		UserPlus2
+	} from 'lucide-svelte';
 	import { Calendar, Newspaper, Users, Edit, ListPlus, Contact, Album, Book } from 'lucide-svelte';
 
 	import { cubicOut } from 'svelte/easing';
@@ -13,7 +21,6 @@
 			icon: Home,
 			label: 'Strona głowna',
 			href: '/'
-			
 		},
 		{
 			icon: Calendar,
@@ -21,7 +28,7 @@
 			href: '/contractsView'
 		},
 		{
-			icon:  Album,
+			icon: Album,
 			label: 'Dodaj Kategorię',
 			href: '/addCategory'
 		},
@@ -31,7 +38,7 @@
 			href: '/addContractEmployeeType'
 		},
 		{
-			icon: Users,
+			icon: UserPlus2,
 			label: 'Dodaj pracownika',
 			href: '/addEmployee'
 		},
@@ -80,7 +87,7 @@
 	<nav>
 		<ul class="flex flex-col gap-3 items-center">
 			{#each items as item}
-			{@const current = $page.url.pathname === item.href}
+				{@const current = $page.url.pathname === item.href}
 				<li class="w-full">
 					<a
 						href={item.href}
@@ -98,7 +105,9 @@
 							</span>
 
 							{#if expanded}
-								<span in:fly|local={{ x: -10, duration: 300 }} class="whitespace-nowrap">{item.label}</span>
+								<span in:fly|local={{ x: -10, duration: 300 }} class="whitespace-nowrap"
+									>{item.label}</span
+								>
 							{/if}
 						</span>
 						{#if current}

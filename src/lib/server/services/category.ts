@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
-import { category } from '../../../schema';
+import { category } from '../schema';
 
 export function getAllCategories() {
 	return db.query.category.findMany();
