@@ -13,5 +13,5 @@ export function getCategoryById(id: string) {
 }
 
 export function createCategory(data: any) {
-	return db.insert(category).values(data).execute();
+	// return db.
 }
