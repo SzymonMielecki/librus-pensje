@@ -1,19 +1,18 @@
-<!-- <script lang="ts">
+<script lang="ts">
 	import { Plus } from 'lucide-svelte'
 	export let data;
 	const monthList = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
-	$: ({ contract } = data);
-	let contractServices = contract?.contractService ? contract?.contractService : [];
-	console.log(contractServices[0])
+	let contract = data.contract;
+	// let contractServices = contract?.contractService ? contract?.contractService : [];
 </script>
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<div class="w-full border border-subtle rounded-3xl overflow-hidden">
 		{#if contract}
 		<h1>
-			Umowa numer {contract.number} dla {contract.employee.name}
+			Umowa numer {contract.number} dla {contract}
 		</h1>
-		<a href="/addcontractService?contractId={contract.id}">
+		<!-- <a href="/addcontractService?contractId={contract.id}">
 			<Plus/>
 			Dodaj usługi do umowy
 		</a>
@@ -58,7 +57,7 @@
 					</tr>
 				{/each}
 			</tbody>
-		</table>
+		</table> -->
 		{/if}
 	</div>
-</div> -->
+</div>

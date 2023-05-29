@@ -1,26 +1,8 @@
-// import { prisma } from '$lib/server/prisma';
+import { getContractWhereId } from '$lib/server/services/contract.js';
 
-// export const load = async ({ params }) => {
-// 	const thisContractId: string = params.id;
-// 	const thisContract = await prisma.contract.findUnique({
-// 		where: {
-// 			id: thisContractId
-// 		},
-// 		include: {
-// 			employee: true,
-// 			contractType: true,
-// 			salaryType: true,
-// 			contractService: {
-// 				include: {
-// 					service: true,
-// 					salaryType: true,
-// 					contractEmployeeType: true,
-// 					hoursMonths: true
-// 				}
-// 			}
-// 		}
-// 	});
-// 	return {
-// 		contract: thisContract
-// 	};
-// };
+export const load = async ({ params }) => {
+	const thisContractId = Number(params.id);
+	return {
+		contract: getContractWhereId(thisContractId)
+	};
+};

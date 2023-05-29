@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import Popover from '$lib/ui/popover.svelte';
 	import Table from '$lib/ui/table.svelte';
 	import Tabs from '$lib/ui/tabs.svelte';
-	import { Plus } from 'lucide-svelte'
+	import { Edit, MoreHorizontal, Plus } from 'lucide-svelte'
+	import { tippy } from 'svelte-tippy';
 	export let data
 	const d = new Date().getMonth()+1;
 	console.log(d)
@@ -27,6 +30,8 @@
 			bind:selected
 			selectable
 			columnsEditable
+			interactive
+			on:rowclick={({ detail: row }) => goto(`/contract/${row.id}`)}
 		>
 		</Table>
 	</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ChevronDown, MoreHorizontal, Settings2 } from 'lucide-svelte';
+	import { ChevronDown, ChevronUp, Settings2 } from 'lucide-svelte';
 	import { tippy } from '$lib/actions/tippy';
 	import { flip } from 'svelte/animate';
 	import { cubicOut } from 'svelte/easing';
@@ -14,7 +14,7 @@
 	export let columnsEditable = false;
 	export let selectable = false;
 	export let items: Record<string, any>[] = [];
-	export let rowClickable = false;
+	export let interactive = false;
 	export let tableColumns: {
 		displayName: string;
 		name: string;
@@ -29,8 +29,7 @@
 		: [];
 
 	let currentTableColumns = tableColumns;
-	export let id = items[0][0];
-	const all = tableColumns;
+	export let id = Object.keys(items[0])[0];
 	const sortBy = queryParam('sort', ssp.string(tableColumns[0].name), {
 		pushHistory
 	});
@@ -51,7 +50,7 @@
 </script>
 
 <div class="w-full overflow-auto">
-	<table class="w-full caption-bottom overflow-x-scroll scrollbar-custom">
+	<table class="w-full caption-bottom overflow-x-scroll">
 		<thead class="[&_tr]:border-b hover:bg-base-200/50 dark:hover:bg-base-900/50 transition-colors">
 			<tr class="border-subtle">
 				{#if selectable}
@@ -66,13 +65,14 @@
 					</th>
 				{/if}
 				{#each currentTableColumns as column, idx (column.name)}
+					{@const sortingByCurrentColumn = $sortBy === column.name}
 					<th
 						animate:flip={{ duration: 200, easing: cubicOut }}
 						class="px-4 py-2 group cursor-pointer transition select-text"
 						class:pl-0={idx === 0 && selectable}
 						class:pr-0={idx === currentTableColumns.length - 1 && columnsEditable}
 						on:click={() => {
-							$sortDir = $sortBy === column.name && $sortDir === 'asc' ? 'desc' : 'asc';
+							$sortDir = sortingByCurrentColumn && $sortDir === 'asc' ? 'desc' : 'asc';
 							$sortBy = column.name;
 						}}
 					>
@@ -87,25 +87,25 @@
 								aria-label="Sort by {column.name}"
 								use:tippy={{ content: `Sort by ${column.name}`, delay: 300 }}
 							>
-								<ChevronDown
+								<ChevronUp
 									size={20}
-									class="absolute rotate-180 transform ease-out group-focus-visible/button:opacity-100 
-													{$sortBy === column.name && $sortDir === 'desc'
+									class="absolute ease-out group-focus-visible/button:opacity-100 
+													{sortingByCurrentColumn && $sortDir === 'desc'
 										? 'top-2 opacity-100 group-hover:top-0.5  group-focus-visible/button:top-0.5'
 										: 'top-0.5 opacity-0'} 
 														transition-all group-hover:opacity-100 
-														{$sortBy === column.name && $sortDir === 'desc'
+														{sortingByCurrentColumn && $sortDir === 'desc'
 										? 'group-hover:text-base-950 group-focus-visible/button:text-base-950 dark:group-hover:text-base-50 dark:group-focus-visible/button:text-base-50'
 										: 'group-hover:text-base-400 group-focus-visible/button:text-base-400 dark:group-hover:text-base-500 dark:group-focus-visible/button:text-base-500'}"
 								/>
 								<ChevronDown
 									size={20}
 									class="absolute ease-out group-focus-visible/button:opacity-100 
-													{$sortBy === column.name && $sortDir === 'asc'
+													{sortingByCurrentColumn && $sortDir === 'asc'
 										? 'bottom-2 opacity-100 group-hover:bottom-0.5 group-focus-visible/button:bottom-0.5'
 										: 'bottom-0.5 opacity-0'} 
 														transition-all group-hover:opacity-100 
-														{$sortBy === column.name && $sortDir === 'asc'
+														{sortingByCurrentColumn && $sortDir === 'asc'
 										? 'group-hover:text-base-950 group-focus-visible/button:text-base-950 dark:group-hover:text-base-50 dark:group-focus-visible/button:text-base-50'
 										: 'group-hover:text-base-400 group-focus-visible/button:text-base-400 dark:group-hover:text-base-500 dark:group-focus-visible/button:text-base-500'}"
 								/>
@@ -131,15 +131,15 @@
 											class="flex w-full text-left items-center justify-between rounded-xl p-2 text-sm font-medium capitalize transition hover:bg-base-200 dark:hover:bg-base-800/50 text-base-500 dark:text-base-400 focus-within:bg-base-200 dark:focus-within:bg-base-800/50 hover:text-base-800 dark:hover:text-base-100 focus-within:text-base-800 dark:focus-within:text-base-100"
 										>
 											{column.displayName}
-											<Switch
+											<!-- <Switch
 												id={column.name}
 												bind:group={currentTableColumns}
 												value={column}
 												defaultChecked
 												disabled={currentTableColumns.includes(column) &&
 													currentTableColumns.length === 1}
-											/>
-											<!-- <label class="relative inline-flex items-center cursor-pointer">
+											/> -->
+											<label class="relative inline-flex items-center cursor-pointer">
 												<input
 													id={column.name}
 													name={column.name}
@@ -153,7 +153,7 @@
 												<span
 													class="w-11 transition peer-disabled:after:dark:bg-zinc-300 peer-disabled:opacity-50 peer-disabled:pointer-events-none h-6 bg-base-300/50 dark:bg-base-800 peer-focus:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary-600 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-base-50 dark:peer-focus-visible:ring-offset-base-950 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-base-50 after:shadow-lg after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-base-600 peer-checked:bg-primary-500 dark:peer-checked:bg-primary-600"
 												/>
-											</label> -->
+											</label>
 										</label>
 									</li>
 								{/each}
@@ -166,7 +166,7 @@
 		<tbody class="[&_tr]:border-b [&_tr:last-child]:border-none relative">
 			{#each items as item, idx (item[id] + idx)}
 				<tr
-					tabindex={rowClickable ? 0 : null}
+					tabindex={interactive ? 0 : null}
 					on:click={() => dispatch('rowclick', item)}
 					on:keydown={(e) => {
 						if (e.code === 'Enter') {

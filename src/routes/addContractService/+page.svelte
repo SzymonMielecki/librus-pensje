@@ -5,7 +5,7 @@
 
 	$: ({ contract, service, salaryType, category, contractEmployeeType, uop } = data);
 
-	$: uopId = uop ? uop.id : null;
+	// $: uopId = uop ? uop.id : null;
 
 	const { form, enhance } = superForm(data.form, {
 		taintedMessage: 'Czy na pewno chcesz opuścić stronę?'
