@@ -43,7 +43,7 @@
 						<td>Wynagrodzenie/Ilośc godzin</td>
 						<td>{contractService.service.name}</td>
 						{#each monthList as month}
-							<td
+							<!-- <td
 								>{Number(
 									contractService.hoursMonths.find(
 										(element) => element.month === Number(month)
@@ -53,7 +53,7 @@
 										(element) => element.month === Number(month)
 									)?.hoursWorked
 								)}</td
-							>
+							> -->
 						{/each}
 					</tr>
 				{/each}

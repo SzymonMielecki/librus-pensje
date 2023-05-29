@@ -1,11 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
 
-import { getAllContracts } from '$lib/db/schema/contract';
+// import { getAllContracts } from '$lib/server/db/schema/contract';
 
 export const load: PageServerLoad = async () => {
-	const contracts = getAllContracts();
+	// const contracts = getAllContracts();
 	return {
-		contracts: contracts
+		contracts: []
 	};
 };
 

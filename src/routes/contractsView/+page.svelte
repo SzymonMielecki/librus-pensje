@@ -7,16 +7,17 @@
 	console.log(d)
 	const contracts = data.contracts
 	console.log(contracts, 'contracts');
-	const contract = {
-		employeeName: contracts[0].employee.name,
-		number: contracts[0].number,
-		serviceCount: contracts[0].contractService.length,
-		thisMonthsPay: contracts[0].contractService.reduce((acc, curr) => acc + Number(curr.salary), 0),
-	}
-	console.log(contract, 'contract');
+	// const contract = {
+	// 	employeeName: contracts[0].employee.name,
+	// 	number: contracts[0].number,
+	// 	serviceCount: contracts[0].contractService.length,
+	// 	thisMonthsPay: contracts[0].contractService.reduce((acc, curr) => acc + Number(curr.salary), 0),
+	// }
+	// console.log(contract, 'contract');
 	let selected: string[] = [];
 	
 </script>
+
 
 <div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
 	<div class="flex flex-row gap-6">
@@ -26,7 +27,7 @@
 			Dodaj umowę
 		</a>
 	</div>
-	<div class="w-full">
+	<!-- <div class="w-full">
 		<Table
 			items={contracts}
 			id="id"
@@ -43,5 +44,5 @@
 		>
 
 		</Table>
-	</div>
+	</div> -->
 </div>

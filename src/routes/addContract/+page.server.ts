@@ -1,35 +1,23 @@
-import type { Actions, PageServerLoad } from './$types';
-import { prisma } from '$lib/server/prisma';
-import { getAllEmployees } from '$lib/server/services/employee';
-
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
-import { z } from 'zod';
-import { createContract } from '$lib/server/services/contract';
+import { createContract, insertContractSchema } from '$lib/server/services/contract';
+import { getAllEmployees } from '$lib/server/services/employee';
+import { getAllContractTypes, getContractTypeUOP } from '$lib/server/services/contractType';
+import { getAllSalaryTypes } from '$lib/server/services/salaryType';
 
-const schema = z.object({
-	employeeId: z.string().nonempty(),
-	number: z.string().nonempty(),
-	contractTypeId: z.string().nonempty(),
-	fixedSalary: z.number().nonnegative(),
-	salaryTypeId: z.string()
-});
-
-export const load: PageServerLoad = async (event) => {
-	const form = await superValidate(event, schema);
+export const load = async (event) => {
+	const form = await superValidate(event, insertContractSchema);
 	return {
 		employee: getAllEmployees(),
-		contractType: await prisma.contractType.findMany(),
-		salaryType: await prisma.salaryType.findMany(),
-		uop: await prisma.contractType.findUnique({ where: { name: 'Umowa o Pracę' } }),
+		contractType: getAllContractTypes(),
+		salaryType: getAllSalaryTypes(),
+		uop: getContractTypeUOP(),
 		form
 	};
 };
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
-		const form = await superValidate(event, schema);
-		console.log(form);
-		console.log(form.data);
+		const form = await superValidate(event, insertContractSchema);
 		if (!form.valid) return fail(400, { message: 'Invalid form data' });
 		try {
 			createContract(form.data);
