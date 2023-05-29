@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { Plus } from 'lucide-svelte'
 	export let data;
 	const monthList = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -43,7 +43,7 @@
 						<td>Wynagrodzenie/Ilośc godzin</td>
 						<td>{contractService.service.name}</td>
 						{#each monthList as month}
-							<!-- <td
+							<td
 								>{Number(
 									contractService.hoursMonths.find(
 										(element) => element.month === Number(month)
@@ -53,7 +53,7 @@
 										(element) => element.month === Number(month)
 									)?.hoursWorked
 								)}</td
-							> -->
+							>
 						{/each}
 					</tr>
 				{/each}
@@ -61,4 +61,4 @@
 		</table>
 		{/if}
 	</div>
-</div>
+</div> -->
