@@ -31,6 +31,3 @@ export const ContractServiceRelations = relations(ContractService, ({ one, many 
 	}),
 	hoursMonths: many(HoursMonths)
 }));
-
-export type ContractService = InferModel<typeof ContractService>;
-export type NewContractService = InferModel<typeof ContractService, 'insert'>;

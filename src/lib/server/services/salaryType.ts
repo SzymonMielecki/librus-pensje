@@ -9,9 +9,9 @@ export type NewSalaryType = InferModel<typeof SalaryType, 'insert'>;
 export const insertSalaryTypeSchema = createInsertSchema(SalaryType);
 
 export const createSalaryType = async (data: NewSalaryType) => {
-	return db.insert(SalaryType).values(data);
+	return await db.insert(SalaryType).values(data);
 };
 
 export const getAllSalaryTypes = async () => {
-	return db.query.SalaryType.findMany();
+	return await db.select().from(SalaryType);
 };

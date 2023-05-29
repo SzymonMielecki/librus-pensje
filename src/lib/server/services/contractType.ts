@@ -10,15 +10,13 @@ export type NewContractType = InferModel<typeof ContractType, 'insert'>;
 export const insertContractTypeSchema = createInsertSchema(ContractType);
 
 export const createContractType = async (data: NewContractType) => {
-	return db.insert(ContractType).values(data);
+	return await db.insert(ContractType).values(data);
 };
 
 export const getAllContractTypes = async () => {
-	return db.query.ContractType.findMany();
+	return await db.select().from(ContractType);
 };
 
 export const getContractTypeUOP = async () => {
-	return db.query.ContractType.findFirst({
-		where: eq(ContractType.name, 'Umowa o pracę')
-	});
+	return await db.select().from(ContractType).where(eq(ContractType.name, 'Umowa o pracę'));
 };

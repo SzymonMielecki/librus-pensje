@@ -9,5 +9,9 @@ export type NewCategory = InferModel<typeof Category, 'insert'>;
 export const insertCategorySchema = createInsertSchema(Category);
 
 export const createCategory = async (data: NewCategory) => {
-	return db.insert(Category).values(data);
+	return await db.insert(Category).values(data);
+};
+
+export const getAllCategories = async () => {
+	return await db.select().from(Category);
 };

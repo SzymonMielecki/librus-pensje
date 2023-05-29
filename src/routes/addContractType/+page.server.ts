@@ -1,22 +1,15 @@
-import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
-import { z } from 'zod';
-import { prisma } from '$lib/server/prisma';
 import { superValidate } from 'sveltekit-superforms/server';
-import { createContractType } from '$lib/server/services/contractType';
+import { createContractType, insertContractTypeSchema } from '$lib/server/services/contractType';
 
-const contractTypeSchema = z.object({
-	name: z.string().min(1)
-});
-
-export const load: PageServerLoad = async (event) => {
-	const form = await superValidate(event, contractTypeSchema);
+export const load = async (event) => {
+	const form = await superValidate(event, insertContractTypeSchema);
 	return { form };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
-		const form = await superValidate(event, contractTypeSchema);
+		const form = await superValidate(event, insertContractTypeSchema);
 		if (!form.valid) {
 			return fail(400, {
 				form

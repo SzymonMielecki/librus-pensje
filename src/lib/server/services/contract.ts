@@ -9,9 +9,9 @@ export type NewContract = InferModel<typeof Contract, 'insert'>;
 export const insertContractSchema = createInsertSchema(Contract);
 
 export const getAllContracts = async () => {
-	return db.query.Contract.findMany();
+	return await db.query.Contract.findMany();
 };
 
 export const createContract = async (data: NewContract) => {
-	return db.insert(Contract).values(data);
+	return await db.insert(Contract).values(data);
 };

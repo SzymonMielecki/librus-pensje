@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import type { ContractType } from '$lib/server/services/contractType';
 	import Combobox from '$lib/ui/combobox.svelte';
-	import { string } from 'zod';
 
 	export let data
 
@@ -32,7 +31,7 @@
 		}
 	})
 
-	let uopId = data.uop ? data.uop.id : null;
+	let uopId = data.uop[0] ? data.uop[0].id : null;
 
 	const { form, enhance } = superForm(data.form, {
 
@@ -40,7 +39,6 @@
 	});
 	let labelInside = false;
 </script>
-<SuperDebug data={$form} />
 <div class="grid place-content-center h-full w-full">
 	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
 
@@ -108,7 +106,7 @@
 			</select>
 		</label>
 
-		{#if $form.contractTypeId === uopId}
+		<!-- {#if $form.contractTypeId === uopId}
 			<label>
 				Stawka godzinowa
 				<input
@@ -135,7 +133,7 @@
 					{/each}
 				</select>
 			</label>
-		{/if}
+		{/if} -->
 		<button class="btn variant-filled" type="submit">Dodaj</button>
 	</form>
 </div>

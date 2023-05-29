@@ -1,21 +1,15 @@
-import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
-import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
-import { createEmployee } from '$lib/server/services/employee';
+import { createEmployee, insertEmployeeSchema } from '$lib/server/services/employee';
 
-const categorySchema = z.object({
-	name: z.string().min(1)
-});
-
-export const load: PageServerLoad = async (event) => {
-	const form = await superValidate(event, categorySchema);
+export const load = async (event) => {
+	const form = await superValidate(event, insertEmployeeSchema);
 	return { form };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
-		const form = await superValidate(event, categorySchema);
+		const form = await superValidate(event, insertEmployeeSchema);
 		if (!form.valid) {
 			return fail(400, {
 				form

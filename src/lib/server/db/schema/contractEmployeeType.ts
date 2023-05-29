@@ -1,5 +1,5 @@
 import { mysqlTable, serial, varchar } from 'drizzle-orm/mysql-core';
-import { relations, type InferModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import { ContractService } from './contractService';
 
 export const ContractEmployeeType = mysqlTable('ContractEmployeeType', {
@@ -10,6 +10,3 @@ export const ContractEmployeeType = mysqlTable('ContractEmployeeType', {
 export const ContractEmployeeTypeRelations = relations(ContractEmployeeType, ({ many }) => ({
 	ContractService: many(ContractService)
 }));
-
-export type ContractEmployeeType = InferModel<typeof ContractEmployeeType>;
-export type NewContractEmployeeType = InferModel<typeof ContractEmployeeType, 'insert'>;

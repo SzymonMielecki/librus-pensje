@@ -9,9 +9,9 @@ export type NewEmployee = InferModel<typeof Employee, 'insert'>;
 export const insertEmployeeSchema = createInsertSchema(Employee);
 
 export const createEmployee = async (data: NewEmployee) => {
-	return db.insert(Employee).values(data);
+	return await db.insert(Employee).values(data);
 };
 
 export const getAllEmployees = async () => {
-	return db.query.Employee.findMany();
+	return await db.select().from(Employee);
 };
