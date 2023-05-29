@@ -2,6 +2,9 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { ContractType } from '$lib/server/services/contractType';
 	import Combobox from '$lib/ui/combobox.svelte';
+	import type { Employee } from '$lib/server/services/employee.js';
+	import type { Salad } from 'lucide-svelte';
+	import type { SalaryType } from '$lib/server/services/salaryType.js';
 
 	export let data
 
@@ -11,20 +14,20 @@
 	// 		label: employee.name
 	// 	}
 	// })
-	let employee = data.employee.map((employee) => {
+	let employee = data.employee.map((employee: Employee) => {
 		return {
 			id: employee.id,
 			name: employee.name
 		}
 	})
-	let contractType = data.contractType.map((contractType) => {
+	let contractType = data.contractType.map((contractType: ContractType) => {
 		return {
 			id: contractType.id,
 			name: contractType.name
 		}
 	})
 
-	let salaryType = data.salaryType.map((salaryType) => {
+	let salaryType = data.salaryType.map((salaryType: SalaryType) => {
 		return {
 			id: salaryType.id,
 			name: salaryType.name
