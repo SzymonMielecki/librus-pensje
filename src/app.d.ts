@@ -1,5 +1,3 @@
-import type { PrismaClient } from '@prisma/client';
-
 declare global {
 	namespace App {
 		// interface Locals {}
@@ -7,7 +5,6 @@ declare global {
 		// interface Error {}
 		// interface Platform {}
 	}
-	var prisma: PrismaClient;
 	declare type contract = {
 		id: string;
 		contractNumber: string;

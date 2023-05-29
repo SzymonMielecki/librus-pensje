@@ -8,4 +8,6 @@
 		src="https://haha.business/business.jpg"
 		alt="Business person laughing"
 	/>
+	
+
 </div>

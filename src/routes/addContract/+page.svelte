@@ -44,16 +44,6 @@
 
 		<h1 class="m-4">Nowa Umowa</h1>
 
-		<!-- <label>
-			Nazwisko i imię pracownika
-			<select name="employeeId" id="employeeId" class="select" bind:value={$form.employeeId}>
-				<option value="" disabled selected hidden>Wybierz pracownika</option>
-				$: {#each employee as employee}
-					<option value={employee.id}>{employee.name}</option>
-				{/each}
-			</select>
-		</label> -->
-
 		<label class="input-label w-full" for="employeeId">
 				Nazwisko i imię pracownika
 			<select

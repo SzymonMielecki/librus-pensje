@@ -1,11 +1,6 @@
 import { mysqlTable, varchar, double, serial } from 'drizzle-orm/mysql-core';
-import { relations, type InferModel } from 'drizzle-orm';
-import { Contract } from './contract';
-import { Service } from './service';
-import { SalaryType } from './salaryType';
-import { Category } from './category';
-import { ContractEmployeeType } from './contractEmployeeType';
-import { HoursMonths } from './hoursMonths';
+import { relations } from 'drizzle-orm';
+import { Contract, Service, SalaryType, Category, ContractEmployeeType, HoursMonths } from './';
 
 export const ContractService = mysqlTable('ContractService', {
 	id: serial('id').primaryKey(),

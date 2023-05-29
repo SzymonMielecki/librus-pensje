@@ -1,6 +1,6 @@
 import { db } from '../db';
 import type { InferModel } from 'drizzle-orm';
-import { SalaryType } from '$lib/server/db/schema/salaryType';
+import { SalaryType } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
 
 export type SalaryType = InferModel<typeof SalaryType>;

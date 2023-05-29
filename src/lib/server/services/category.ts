@@ -1,6 +1,6 @@
 import { db } from '../db';
 import type { InferModel } from 'drizzle-orm';
-import { Category } from '$lib/server/db/schema/category';
+import { Category } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
 
 export type Category = InferModel<typeof Category>;

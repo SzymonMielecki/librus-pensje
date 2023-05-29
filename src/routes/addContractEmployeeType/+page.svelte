@@ -13,17 +13,29 @@
 </script>
 
 <div class="grid place-content-center h-full w-full">
-	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
-		<h1 class="m-4">Nowy typ pracownika</h1>
-		<label>
-			Nazwa typu pracownika
-			<input type="text" name="name" id="name" class="input" bind:value={$form.name} />
+	<form
+	method="POST"
+	autocomplete="off"
+	use:enhance
+	class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border"
+	>
+	<h1 class="text-lg">Nowy typ pracownika</h1>
+	<label class="input-label w-full">
+		Nazwa typu pracownika
+			<input
+				type="text"
+				name="name"
+				id="name"
+				class="input"
+				bind:value={$form.name}
+				placeholder="Nauczyciel"
+				data-invalid={$errors.name}
+			/>
 
 			{#if $errors.name}
-				<small class="text-primary-400">{$errors.name}</small>
+				<small class="text-red-500">{$errors.name}</small>
 			{/if}
 		</label>
 		<button class="btn variant-filled" type="submit">Dodaj</button>
-
 	</form>
 </div>

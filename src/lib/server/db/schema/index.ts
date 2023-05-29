@@ -10,7 +10,7 @@ export { ContractType as ContractType } from './contractType';
 export { ContractTypeRelations as ContractTypeRelations } from './contractType';
 export { Employee as Employee } from './employee';
 export { EmployeeRelations as EmployeeRelations } from './employee';
-export { HoursMonths as hoursMonths } from './hoursMonths';
+export { HoursMonths as HoursMonths } from './hoursMonths';
 export { HoursMonthsRelations as hoursMonthsRelations } from './hoursMonths';
 export { SalaryType as SalaryType } from './salaryType';
 export { SalaryTypeRelations as SalaryTypeRelations } from './salaryType';

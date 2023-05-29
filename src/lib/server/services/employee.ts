@@ -1,6 +1,6 @@
 import { db } from '../db';
 import type { InferModel } from 'drizzle-orm';
-import { Employee } from '$lib/server/db/schema/employee';
+import { Employee } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
 
 export type Employee = InferModel<typeof Employee>;
@@ -14,4 +14,5 @@ export const createEmployee = async (data: NewEmployee) => {
 
 export const getAllEmployees = async () => {
 	return await db.select().from(Employee);
+	// return await db.query.Employee.findMany();
 };

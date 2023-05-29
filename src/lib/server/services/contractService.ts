@@ -1,6 +1,6 @@
 import { db } from '../db';
 import type { InferModel } from 'drizzle-orm';
-import { ContractService } from '$lib/server/db/schema/contractService';
+import { ContractService } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
 
 export type ContractService = InferModel<typeof ContractService>;

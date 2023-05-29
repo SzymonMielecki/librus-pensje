@@ -46,11 +46,6 @@
 			icon: Edit,
 			label: 'Dodaj usługę',
 			href: '/addService'
-		},
-		{
-			icon: Book,
-			label: 'Dodaj typ umowy',
-			href: '/addContractType'
 		}
 	];
 	const [send, receive] = crossfade({});

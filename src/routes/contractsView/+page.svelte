@@ -6,14 +6,7 @@
 	const d = new Date().getMonth()+1;
 	console.log(d)
 	const contracts = data.contracts
-	console.log(contracts, 'contracts');
-	// const contract = {
-	// 	employeeName: contracts[0].employee.name,
-	// 	number: contracts[0].number,
-	// 	serviceCount: contracts[0].contractService.length,
-	// 	thisMonthsPay: contracts[0].contractService.reduce((acc, curr) => acc + Number(curr.salary), 0),
-	// }
-	// console.log(contract, 'contract');
+	console.log(contracts);
 	let selected: string[] = [];
 	
 </script>
@@ -27,22 +20,14 @@
 			Dodaj umowę
 		</a>
 	</div>
-	<!-- <div class="w-full">
+	<div class="w-full">
 		<Table
 			items={contracts}
 			id="id"
-			tableColumns={Object.keys(contract).map((key) => ({
-				displayName: key
-					.replace(/_/g, ' ')
-					.replace(/([A-Z])/g, ' $1')
-					.replace(/^./, (str) => str.toUpperCase()),
-				name: key
-			}))}
 			bind:selected
 			selectable
 			columnsEditable
 		>
-
 		</Table>
-	</div> -->
+	</div>
 </div>
