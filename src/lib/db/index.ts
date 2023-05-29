@@ -1,6 +1,6 @@
-import * as schema from './schema/index';
-import { drizzle } from 'drizzle-orm/mysql2';
+import { drizzle, type MySql2Database } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
+import * as schema from '$lib/db';
 
 const connection = await mysql.createConnection({
 	host: process.env['DATABASE_HOST'],
@@ -9,6 +9,6 @@ const connection = await mysql.createConnection({
 	database: process.env['DATABASE_NAME']
 });
 
-const db = drizzle(connection, { schema });
+const db: MySql2Database = drizzle(connection, { schema });
 
 export { db };

@@ -4,6 +4,7 @@ import { contractService } from './contractService';
 import { employee } from './employee';
 import { contractType } from './contractType';
 import { salaryType } from './salaryType';
+import { db } from '$lib/db';
 
 export const contract = mysqlTable('Contract', {
 	id: varchar('id', { length: 191 }).primaryKey().notNull(),
@@ -26,3 +27,7 @@ export const contractRelations = relations(contract, ({ one, many }) => ({
 
 export type Contract = InferModel<typeof contract>;
 export type NewContract = InferModel<typeof contract, 'insert'>;
+
+export const getAllContracts = async () => {
+	return db.query.contract.findMany();
+};

@@ -15,6 +15,20 @@
       "when": 1685302420298,
       "tag": "0001_violet_shotgun",
       "breakpoints": false
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1685334516212,
+      "tag": "0002_elite_ezekiel_stane",
+      "breakpoints": false
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1685341880718,
+      "tag": "0003_funny_bug",
+      "breakpoints": false
     }
   ]
 }
