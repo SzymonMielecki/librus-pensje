@@ -53,12 +53,10 @@
 		"lucide-svelte": "^0.215.0",
 		"mysql": "^2.18.1",
 		"mysql2": "^3.3.3",
-		"postgres": "^3.3.4",
 		"svelte-headlessui": "^0.0.15",
 		"svelte-tippy": "^1.3.2",
 		"svelte-transition": "^0.0.7",
 		"sveltekit-search-params": "^1.0.12",
-		"tippy.js": "^6.3.7",
-		"vercel": "^29.4.0"
+		"tippy.js": "^6.3.7"
 	}
 }
