@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { ContractType } from '$lib/server/services/contractType';
-	import Combobox from '$lib/ui/combobox.svelte';
 	import type { Employee } from '$lib/server/services/employee.js';
-	import type { Salad } from 'lucide-svelte';
 	import type { SalaryType } from '$lib/server/services/salaryType.js';
+	import * as flashModule from 'sveltekit-flash-message/client';
+	import { page } from '$app/stores';
+	import { initFlash } from 'sveltekit-flash-message/client';
 
-	export let data
+	export let data;
 
 	// let employee = data.employee.map((employee) => {
 	// 	return {
@@ -18,47 +19,61 @@
 		return {
 			id: employee.id,
 			name: employee.name
-		}
-	})
+		};
+	});
 	let contractType = data.contractType.map((contractType: ContractType) => {
 		return {
 			id: contractType.id,
 			name: contractType.name
-		}
-	})
+		};
+	});
 
 	let salaryType = data.salaryType.map((salaryType: SalaryType) => {
 		return {
 			id: salaryType.id,
 			name: salaryType.name
-		}
-	})
+		};
+	});
 
 	let uopId = data.uop[0] ? data.uop[0].id : null;
 
 	const { form, enhance } = superForm(data.form, {
-
-		taintedMessage: null
+		syncFlashMessage: false,
+		flashMessage: {
+			module: flashModule
+		}
 	});
-	let labelInside = false;
-</script>
-<div class="grid place-content-center h-full w-full">
-	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
 
+	const flash = initFlash(page);
+	const flashTimeoutMs = 5000;
+
+	let flashTimeout: ReturnType<typeof setTimeout>;
+	$: if ($flash) {
+		clearTimeout(flashTimeout);
+		flashTimeout = setTimeout(() => ($flash = undefined), flashTimeoutMs);
+	}
+</script>
+
+<div class="grid place-content-center h-full w-full">
+	{#if $flash}
+		{@const bg = $flash.type == 'success' ? '#3D9970' : '#FF4136'}
+		<div style:background-color={bg} class="flash">{$flash.message}</div>
+	{/if}
+	<form
+		method="POST"
+		autocomplete="off"
+		class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border"
+		use:enhance
+	>
 		<h1 class="m-4">Nowa Umowa</h1>
 
 		<label class="input-label w-full" for="employeeId">
-				Nazwisko i imię pracownika
-			<select
-				name="employeeId"
-				id="employeeId"
-				class="input w-full"
-				bind:value={$form.employeeId}
-			>
-				<option value="" disabled selected hidden 
-				class="text-base-950 dark:text-base-50 text-sm font-medium"
-				>Wybierz pracownika</option>
-				$: {#each employee as employee}
+			Nazwisko i imię pracownika
+			<select name="employeeId" id="employeeId" class="input w-full" bind:value={$form.employeeId}>
+				<option disabled selected hidden class="text-base-950 dark:text-base-50 text-sm font-medium"
+					>Wybierz pracownika</option
+				>
+				{#each employee as employee}
 					<option value={employee.id}>{employee.name}</option>
 				{/each}
 			</select>
@@ -90,10 +105,10 @@
 				class="input w-full"
 				bind:value={$form.contractTypeId}
 			>
-				<option value="" disabled selected hidden 
-				class="text-base-950 dark:text-base-50 text-sm font-medium"
-				>Wybierz typ umowy</option>
-				$: {#each contractType as contractType}
+				<option disabled selected hidden class="text-base-950 dark:text-base-50 text-sm font-medium"
+					>Wybierz typ umowy</option
+				>
+				{#each contractType as contractType}
 					<option value={contractType.id}>{contractType.name}</option>
 				{/each}
 			</select>
@@ -127,6 +142,6 @@
 				</select>
 			</label>
 		{/if} -->
-		<button class="btn variant-filled" type="submit">Dodaj</button>
+		<button class="btn" type="submit">Dodaj</button>
 	</form>
 </div>

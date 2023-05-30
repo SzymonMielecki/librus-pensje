@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';	
 	export let data
 
-	$: ({ contract, service, salaryType, category, contractEmployeeType, uop } = data);
-
+	let contract = data.contract.map((contract) => {
+		return {
+			id: contract.Contract.id,
+			number: contract.Contract.number
+		}
+	})
 	// $: uopId = uop ? uop.id : null;
 
 	const { form, enhance } = superForm(data.form, {
@@ -12,21 +16,23 @@
 	});
 </script>
 
+<SuperDebug data={$form} />
+
 <div class="grid place-content-center h-full w-full">
 	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
 		<h1 class="m-4">Nowa Usługa dla Umowy</h1>
 
-		<label>
+		<label class="input-label w-full" for="contractId">
 			Nr. umowy
-			<select name="contractId" id="contractId" class="select" bind:value={$form.contractId}>
+			<select name="contractId" id="contractId" class="input w-full" bind:value={$form.contractId}>
 				<option value="" disabled selected hidden>Wybierz nr. umowy</option>
-				$: {#each contract as contract}
+				{#each contract as contract}
 					<option value={contract.id}>{contract.number}</option>
 				{/each}
 			</select>
 		</label>
 
-		<label>
+		<!-- <label>
 			Usługa
 			<select name="serviceId" id="serviceId" class="select" bind:value={$form.serviceId}>
 				<option value="" disabled selected hidden>Wybierz usługę</option>
@@ -86,7 +92,7 @@
 					<option value={contractEmployeeType.id}>{contractEmployeeType.name}</option>
 				{/each}
 			</select>
-		</label>
+		</label> -->
 
 		<!-- {#if $form.contractTypeId === uopId}
 			<label>

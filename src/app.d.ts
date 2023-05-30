@@ -4,16 +4,9 @@ declare global {
 		// interface PageData {}
 		// interface Error {}
 		// interface Platform {}
+		interface PageData {
+			flash?: { type: 'success' | 'error'; message: string };
+		}
 	}
-	declare type contract = {
-		id: string;
-		contractNumber: string;
-		teacherName: string;
-		subjectName: string;
-		contractTypeName: string;
-		hourlyRate: number;
-		hoursWorked: number;
-		month: number;
-	};
 }
 export {};

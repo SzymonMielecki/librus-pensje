@@ -11,7 +11,20 @@
 	const contracts = data.contracts
 	console.log(contracts);
 	let selected: string[] = [];
-	
+	let items = data.contracts.map((items) => {
+		return {
+			id: items.Contract.id,
+			number: items.Contract.number,
+			employee: items.Employee?.name,
+			contractType: items.ContractType?.name,
+		}
+	})
+	let item = {
+		id: 1,
+		number: 'test',
+		employee: 'test',
+		contractType: 'test',
+	}
 </script>
 
 
@@ -25,13 +38,19 @@
 	</div>
 	<div class="w-full">
 		<Table
-			items={contracts}
+			items={items}
 			id="id"
 			bind:selected
 			selectable
-			columnsEditable
 			interactive
 			on:rowclick={({ detail: row }) => goto(`/contract/${row.id}`)}
+			tableColumns={Object.keys(item).map((key) => ({
+				displayName: key
+					.replace(/_/g, ' ')
+					.replace(/([A-Z])/g, ' $1')
+					.replace(/^./, (str) => str.toUpperCase()),
+				name: key
+			}))}
 		>
 		</Table>
 	</div>

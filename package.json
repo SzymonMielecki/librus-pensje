@@ -53,9 +53,11 @@
 		"lucide-svelte": "^0.215.0",
 		"mysql": "^2.18.1",
 		"mysql2": "^3.3.3",
+		"svelte-french-toast": "1.0.4-beta.0",
 		"svelte-headlessui": "^0.0.15",
 		"svelte-tippy": "^1.3.2",
 		"svelte-transition": "^0.0.7",
+		"sveltekit-flash-message": "^0.11.3",
 		"sveltekit-search-params": "^1.0.12",
 		"tippy.js": "^6.3.7"
 	}

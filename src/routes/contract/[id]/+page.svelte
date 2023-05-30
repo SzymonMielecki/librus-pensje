@@ -2,21 +2,23 @@
 	import { Plus } from 'lucide-svelte'
 	export let data;
 	const monthList = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
-	let contract = data.contract;
-	console.log(contract);
+	console.log(data)
 	// let contractServices = contract?.contractService ? contract?.contractService : [];
+	let thisContract = data.contract;
 </script>
 
-<div class="p-4 flex justify-center items-center flex-col w-full gap-4 h-full overflow-auto">
-	<div class="w-full border border-subtle rounded-3xl overflow-hidden">
-		{#if contract}
-		<h1>
-			Umowa numer {contract.number}
-		</h1>
-		<!-- <a href="/addcontractService?contractId={contract.id}">
-			<Plus/>
-			Dodaj usługi do umowy
-		</a>
+<div class="grid place-content-center h-full w-full">
+	<div class="grid h-full p-6 gap-8 border-subtle rounded-3xl border">
+		{#if thisContract}
+		<div class="grid grid-cols-2">
+			<h1 class="text-lg">
+				Umowa numer {thisContract.Contract.number} dla {thisContract.Employee?.name}
+			</h1>
+			<a href="/addContractService?contractId={thisContract.Contract.id}" class="btn btn-ghost">
+				<Plus/>
+				Dodaj usługi do umowy
+			</a>
+		</div>
 		<table class="table">
 			<thead>
 				<tr>
@@ -37,28 +39,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each contract.contractService as contractService}
-					
+				{#if thisContract.ContractService}
+					<!-- {#each thisContract.ContractService as ContractService} -->
+						<!-- <tr>
+							<td>Wynagrodzenie/Ilośc godzin</td>
+							<td>{ContractService.service.name}</td>
+							{#each monthList as month}
+							<td>{Number(ContractService.hoursMonths.find((element) => element.month === Number(month))?.hoursWorked)}</td>
+							{/each}
+						</tr> -->
+					<!-- {/each}	 -->
+				{:else}
 					<tr>
-						<td>Wynagrodzenie/Ilośc godzin</td>
-						<td>{contractService.service.name}</td>
-						{#each monthList as month}
-							<td
-								>{Number(
-									contractService.hoursMonths.find(
-										(element) => element.month === Number(month)
-									)?.hoursWorked
-								) * Number(contractService.salary)}/{Number(
-									contractService.hoursMonths.find(
-										(element) => element.month === Number(month)
-									)?.hoursWorked
-								)}</td
-							>
-						{/each}
+						<td colspan="14">Brak usług w umowie</td>
 					</tr>
-				{/each}
+				{/if}
 			</tbody>
-		</table> -->
+		</table>
 		{/if}
 	</div>
 </div>

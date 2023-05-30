@@ -1,15 +1,15 @@
-import { mysqlTable, varchar, double, serial } from 'drizzle-orm/mysql-core';
+import { mysqlTable, double, serial, int } from 'drizzle-orm/mysql-core';
 import { relations } from 'drizzle-orm';
 import { Contract, Service, SalaryType, Category, ContractEmployeeType, HoursMonths } from './';
 
 export const ContractService = mysqlTable('ContractService', {
 	id: serial('id').primaryKey(),
 	salary: double('salary'),
-	contractId: varchar('contractId', { length: 191 }).notNull(),
-	serviceId: varchar('serviceId', { length: 191 }).notNull(),
-	salaryTypeId: varchar('salaryTypeId', { length: 191 }),
-	categoryId: varchar('categoryId', { length: 191 }).notNull(),
-	contractEmployeeTypeId: varchar('contractEmployeeTypeId', { length: 191 }).notNull()
+	contractId: int('contractId').notNull(),
+	serviceId: int('serviceId').notNull(),
+	salaryTypeId: int('salaryTypeId'),
+	categoryId: int('categoryId').notNull(),
+	contractEmployeeTypeId: int('contractEmployeeTypeId').notNull()
 });
 
 export const ContractServiceRelations = relations(ContractService, ({ one, many }) => ({

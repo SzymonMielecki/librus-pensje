@@ -26,6 +26,7 @@ export const load = async (event) => {
 export const actions = {
 	default: async (event) => {
 		const form = await superValidate(event, insertContractServiceSchema);
+		console.log('form', form);
 		if (!form.valid) {
 			return fail(400, {
 				form
