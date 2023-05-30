@@ -3,6 +3,7 @@
 	export let data;
 	const monthList = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8];
 	let contract = data.contract;
+	console.log(contract);
 	// let contractServices = contract?.contractService ? contract?.contractService : [];
 </script>
 
@@ -10,7 +11,7 @@
 	<div class="w-full border border-subtle rounded-3xl overflow-hidden">
 		{#if contract}
 		<h1>
-			Umowa numer {contract.number} dla {contract}
+			Umowa numer {contract.number}
 		</h1>
 		<!-- <a href="/addcontractService?contractId={contract.id}">
 			<Plus/>

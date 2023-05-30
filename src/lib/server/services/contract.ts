@@ -17,5 +17,7 @@ export const createContract = async (data: NewContract) => {
 };
 
 export const getContractWhereId = async (id: number) => {
-	return await db.select().from(Contract).where(eq(Contract.id, id))[0];
+	const contractWhereId = await db.select().from(Contract).where(eq(Contract.id, id));
+	console.log('contractWhereId', contractWhereId[0]);
+	return contractWhereId[0];
 };
