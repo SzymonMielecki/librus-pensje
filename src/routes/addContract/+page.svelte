@@ -38,27 +38,28 @@
 	let uopId = data.uop[0] ? data.uop[0].id : null;
 
 	const { form, enhance } = superForm(data.form, {
-		syncFlashMessage: false,
+		syncFlashMessage: true,
 		flashMessage: {
 			module: flashModule
 		}
 	});
 
 	const flash = initFlash(page);
-	const flashTimeoutMs = 5000;
+	const flashTimeoutMs = 3000;
 
 	let flashTimeout: ReturnType<typeof setTimeout>;
+
 	$: if ($flash) {
 		clearTimeout(flashTimeout);
 		flashTimeout = setTimeout(() => ($flash = undefined), flashTimeoutMs);
 	}
 </script>
 
+{#if $flash}
+	{@const bg = $flash.type == 'success' ? '#3D9970' : '#FF4136'}
+	<div style:background-color={bg} class="flash">{$flash.message}</div>
+{/if}
 <div class="grid place-content-center h-full w-full">
-	{#if $flash}
-		{@const bg = $flash.type == 'success' ? '#3D9970' : '#FF4136'}
-		<div style:background-color={bg} class="flash">{$flash.message}</div>
-	{/if}
 	<form
 		method="POST"
 		autocomplete="off"
