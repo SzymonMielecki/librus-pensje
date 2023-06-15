@@ -3,9 +3,6 @@
 	import type { ContractType } from '$lib/server/services/contractType';
 	import type { Employee } from '$lib/server/services/employee.js';
 	import type { SalaryType } from '$lib/server/services/salaryType.js';
-	import * as flashModule from 'sveltekit-flash-message/client';
-	import { page } from '$app/stores';
-	import { initFlash } from 'sveltekit-flash-message/client';
 
 	export let data;
 
@@ -38,27 +35,9 @@
 	let uopId = data.uop[0] ? data.uop[0].id : null;
 
 	const { form, enhance } = superForm(data.form, {
-		syncFlashMessage: true,
-		flashMessage: {
-			module: flashModule
-		}
 	});
-
-	const flash = initFlash(page);
-	const flashTimeoutMs = 3000;
-
-	let flashTimeout: ReturnType<typeof setTimeout>;
-
-	$: if ($flash) {
-		clearTimeout(flashTimeout);
-		flashTimeout = setTimeout(() => ($flash = undefined), flashTimeoutMs);
-	}
 </script>
 
-{#if $flash}
-	{@const bg = $flash.type == 'success' ? '#3D9970' : '#FF4136'}
-	<div style:background-color={bg} class="flash">{$flash.message}</div>
-{/if}
 <div class="grid place-content-center h-full w-full">
 	<form
 		method="POST"

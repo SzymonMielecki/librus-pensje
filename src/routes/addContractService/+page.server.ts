@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { getAllCategories } from '$lib/server/services/category';
 import {
@@ -9,12 +9,12 @@ import { getAllSalaryTypes } from '$lib/server/services/salaryType';
 import { getAllServices } from '$lib/server/services/service';
 import { getAllContractEmployeeTypes } from '$lib/server/services/contractEmployeeType';
 import { getContractTypeUOP } from '$lib/server/services/contractType';
-import { getAllContracts } from '$lib/server/services/contract';
+import { getContractWhereId } from '$lib/server/services/contract.js';
 
-export const load = async (event) => {
-	const form = await superValidate(event, insertContractServiceSchema);
+export const load = async ({ url }) => {
+	const form = await superValidate(insertContractServiceSchema);
 	return {
-		contract: getAllContracts(),
+		thisContractInfo: getContractWhereId(Number(url.searchParams.get('contractId'))),
 		service: getAllServices(),
 		salaryType: getAllSalaryTypes(),
 		category: getAllCategories(),
@@ -24,19 +24,17 @@ export const load = async (event) => {
 	};
 };
 export const actions = {
-	default: async (event) => {
-		const form = await superValidate(event, insertContractServiceSchema);
-		console.log('form', form);
+	default: async ({ request, url }) => {
+		const form = await superValidate(request, insertContractServiceSchema);
 		if (!form.valid) {
-			return fail(400, {
-				form
-			});
+			return fail(400, { form });
 		}
 		try {
-			createContractService(form.data);
+			await createContractService(form.data);
+			console.log('form', form);
 		} catch (err) {
 			return fail(500, { message: 'Could not create contract type' });
 		}
-		return { status: 201 };
+		throw redirect(303, `/contract/${url.searchParams.get('contractId')}`);
 	}
 };

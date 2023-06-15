@@ -1,22 +1,22 @@
 import { db } from '../db';
 import type { InferModel } from 'drizzle-orm';
-import { ContractType } from '$lib/server/db/schema';
+import { contractType } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
 import { eq } from 'drizzle-orm';
 
-export type ContractType = InferModel<typeof ContractType>;
-export type NewContractType = InferModel<typeof ContractType, 'insert'>;
+export type ContractType = InferModel<typeof contractType>;
+export type NewContractType = InferModel<typeof contractType, 'insert'>;
 
-export const insertContractTypeSchema = createInsertSchema(ContractType);
+export const insertContractTypeSchema = createInsertSchema(contractType);
 
 export const createContractType = async (data: NewContractType) => {
-	return await db.insert(ContractType).values(data);
+	return await db.insert(contractType).values(data);
 };
 
 export const getAllContractTypes = async () => {
-	return await db.select().from(ContractType);
+	return await db.select().from(contractType);
 };
 
 export const getContractTypeUOP = async () => {
-	return await db.select().from(ContractType).where(eq(ContractType.name, 'Umowa o pracę'));
+	return await db.select().from(contractType).where(eq(contractType.name, 'Umowa o pracę'));
 };

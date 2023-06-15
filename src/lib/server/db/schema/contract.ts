@@ -1,9 +1,9 @@
 import { mysqlTable, varchar, double, serial, uniqueIndex, int } from 'drizzle-orm/mysql-core';
 import { relations } from 'drizzle-orm';
-import { ContractService, Employee, ContractType, SalaryType } from './';
+import { contractService, employee, contractType, salaryType } from './';
 
-export const Contract = mysqlTable(
-	'Contract',
+export const contract = mysqlTable(
+	'contract',
 	{
 		id: serial('id').primaryKey(),
 		number: varchar('number', { length: 191 }).notNull(),
@@ -12,19 +12,19 @@ export const Contract = mysqlTable(
 		contractTypeId: int('contractTypeId').notNull(),
 		salaryTypeId: int('salaryTypeId')
 	},
-	(Contract) => {
+	(contract) => {
 		return {
-			numberIdx: uniqueIndex('number_idx').on(Contract.number)
+			numberIdx: uniqueIndex('number_idx').on(contract.number)
 		};
 	}
 );
 
-export const ContractRelations = relations(Contract, ({ one, many }) => ({
-	ContractService: many(ContractService),
-	Employee: one(Employee, { fields: [Contract.employeeId], references: [Employee.id] }),
-	ContractType: one(ContractType, {
-		fields: [Contract.contractTypeId],
-		references: [ContractType.id]
+export const contractRelations = relations(contract, ({ one, many }) => ({
+	contractService: many(contractService),
+	employee: one(employee, { fields: [contract.employeeId], references: [employee.id] }),
+	contractType: one(contractType, {
+		fields: [contract.contractTypeId],
+		references: [contractType.id]
 	}),
-	SalaryType: one(SalaryType, { fields: [Contract.salaryTypeId], references: [SalaryType.id] })
+	salaryType: one(salaryType, { fields: [contract.salaryTypeId], references: [salaryType.id] })
 }));

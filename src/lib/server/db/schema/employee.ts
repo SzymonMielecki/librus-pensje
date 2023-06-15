@@ -1,20 +1,20 @@
 import { mysqlTable, serial, uniqueIndex, varchar } from 'drizzle-orm/mysql-core';
 import { relations } from 'drizzle-orm';
-import { Contract } from './contract';
+import { contract } from './';
 
-export const Employee = mysqlTable(
-	'Employee',
+export const employee = mysqlTable(
+	'employee',
 	{
 		id: serial('id').primaryKey(),
 		name: varchar('name', { length: 191 }).notNull()
 	},
-	(Employee) => {
+	(employee) => {
 		return {
-			nameIdx: uniqueIndex('name_idx').on(Employee.name)
+			nameIdx: uniqueIndex('name_idx').on(employee.name)
 		};
 	}
 );
 
-export const EmployeeRelations = relations(Employee, ({ many }) => ({
-	Contract: many(Contract)
+export const employeeRelations = relations(employee, ({ many }) => ({
+	contract: many(contract)
 }));

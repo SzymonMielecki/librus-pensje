@@ -3,7 +3,7 @@
 	import Popover from '$lib/ui/popover.svelte';
 	import Table from '$lib/ui/table.svelte';
 	import Tabs from '$lib/ui/tabs.svelte';
-	import { Edit, MoreHorizontal, Plus } from 'lucide-svelte'
+	import { Edit, MoreHorizontal, Plus, Trash2, Trash2Icon } from 'lucide-svelte'
 	import { tippy } from 'svelte-tippy';
 	export let data
 	const d = new Date().getMonth()+1;
@@ -11,12 +11,12 @@
 	const contracts = data.contracts
 	console.log(contracts);
 	let selected: string[] = [];
-	let items = data.contracts.map((items) => {
+	let items = contracts.map((items) => {
 		return {
-			id: items.Contract.id,
-			number: items.Contract.number,
-			employee: items.Employee?.name,
-			contractType: items.ContractType?.name,
+			id: items.id,
+			number: items.number,
+			employee: items.employee?.name,
+			contractType: items.contractType?.name,
 		}
 	})
 	let item = {
@@ -52,6 +52,7 @@
 				name: key
 			}))}
 		>
+		
 		</Table>
 	</div>
 </div>

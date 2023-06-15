@@ -1,51 +1,81 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';	
+	import Combobox from '$lib/ui/combobox.svelte';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import { goto } from '$app/navigation';
 	export let data
 
-	let contract = data.contract.map((contract) => {
+	let thisContractInfo = data.thisContractInfo
+	let service = data.service.map((service) => {
 		return {
-			id: contract.Contract.id,
-			number: contract.Contract.number
+			id: service.id,
+			name: service.name
 		}
 	})
-	// $: uopId = uop ? uop.id : null;
-
+	let salaryType = data.salaryType.map((salaryType) => {
+		return {
+			id: salaryType.id,
+			name: salaryType.name
+		}
+	})
+	let category = data.category.map((category) => {
+		return {
+			id: category.id,
+			name: category.name
+		}
+	})
+	let contractEmployeeType = data.contractEmployeeType.map((contractEmployeeType) => {
+		return {
+			id: contractEmployeeType.id,
+			name: contractEmployeeType.name
+		}
+	})
 	const { form, enhance } = superForm(data.form, {
-		taintedMessage: 'Czy na pewno chcesz opuścić stronę?'
+		taintedMessage: null
 	});
+	// console.log(fromWhereId)
+	if (thisContractInfo) {
+		$form.contractId = thisContractInfo.id
+	} else {
+		goto('/contractsView')
+	}
+	console.log('contractId', $form.contractId);
+	console.log('thisContractInfo', thisContractInfo);
+	
 </script>
 
 <SuperDebug data={$form} />
 
+{#if thisContractInfo}
 <div class="grid place-content-center h-full w-full">
 	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
-		<h1 class="m-4">Nowa Usługa dla Umowy</h1>
+		<h1 class="m-4 text-xl">
+			Nowa Usługa 
+		</h1>
+		<h2 class="text-lg">
+			dla pracownika {thisContractInfo.employee.name} <br>
+			dla Umowy nr. {thisContractInfo.number} <br>
+		</h2>
 
-		<label class="input-label w-full" for="contractId">
-			Nr. umowy
-			<select name="contractId" id="contractId" class="input w-full" bind:value={$form.contractId}>
-				<option value="" disabled selected hidden>Wybierz nr. umowy</option>
-				{#each contract as contract}
-					<option value={contract.id}>{contract.number}</option>
-				{/each}
-			</select>
-		</label>
+		<input type="hidden" bind:value={$form.contractId}>
 
-		<!-- <label>
+
+		<label class="input-label w-full" for="serviceId">
 			Usługa
-			<select name="serviceId" id="serviceId" class="select" bind:value={$form.serviceId}>
+			<!-- <Combobox id="serviceId" placeholder="Podstawy Informatyki" items={service} bind:value={comboboxSelectedService}/> -->
+			<select name="serviceId" id="serviceId" class="input w-full" bind:value={$form.serviceId}>
 				<option value="" disabled selected hidden>Wybierz usługę</option>
-				$: {#each service as service}
+				{#each service as service}
 					<option value={service.id}>{service.name}</option>
 				{/each}
 			</select>
 		</label>
 
-		<label>
+		<label class="input-label w-full" for="salary">
 			Stawka
 			<input
-				type="text"
+				type="number"
 				name="salary"
 				id="salary"
 				class="input"
@@ -54,48 +84,48 @@
 			/>
 		</label>
 
-		<label>
+		<label class="input-label w-full" for="salaryTypeId">
 			Typ stawki
 			<select
 				name="salaryTypeId"
 				id="salaryTypeId"
-				class="select"
+				class="input w-full"
 				bind:value={$form.salaryTypeId}
 			>
 				<option value="" disabled selected hidden>Wybierz typ stawki</option>
-				$: {#each salaryType as salaryType}
+				{#each salaryType as salaryType}
 					<option value={salaryType.id}>{salaryType.name}</option>
 				{/each}
 			</select>
 		</label>
 
-		<label>
+		<label class="input-label w-full" for="categoryId">
 			Kategoria
-			<select name="categoryId" id="categoryId" class="select" bind:value={$form.categoryId}>
+			<select name="categoryId" id="categoryId" class="input w-full" bind:value={$form.categoryId}>
 				<option value="" disabled selected hidden>Wybierz kategorię umowy</option>
-				$: {#each category as category}
+				{#each category as category}
 					<option value={category.id}>{category.name}</option>
 				{/each}
 			</select>
 		</label>
 
-		<label>
+		<label class="input-label w-full" for="contractEmployeeTypeId">
 			Typ pracownika
 			<select
 				name="contractEmployeeTypeId"
 				id="contractEmployeeTypeId"
-				class="select"
+				class="input w-full"
 				bind:value={$form.contractEmployeeTypeId}
 			>
 				<option value="" disabled selected hidden>Wybierz typ pracownika</option>
-				$: {#each contractEmployeeType as contractEmployeeType}
+				{#each contractEmployeeType as contractEmployeeType}
 					<option value={contractEmployeeType.id}>{contractEmployeeType.name}</option>
 				{/each}
 			</select>
-		</label> -->
+		</label>
 
 		<!-- {#if $form.contractTypeId === uopId}
-			<label>
+			<label class="input-label w-full" for="contractId">
 				Stawka godzinowa
 				<input
 					type="number"
@@ -107,12 +137,12 @@
 				/>
 			</label>
 
-			<label>
+			<label class="input-label w-full" for="contractId">
 				Typ stawki
 				<select
 					name="salaryTypeId"
 					id="salaryTypeId"
-					class="select"
+					class="input w-full"
 					bind:value={$form.salaryTypeId}
 				>
 					<option value="" disabled selected hidden>Wybierz typ stawki</option>
@@ -122,6 +152,8 @@
 				</select>
 			</label>
 		{/if} -->
-		<button class="btn variant-filled" type="submit">Dodaj</button>
+		<button class="btn" type="submit">Dodaj</button>
 	</form>
+	<button class="btn btn-outline" on:click={() => {console.log($form)}}>test</button>
 </div>
+{/if}

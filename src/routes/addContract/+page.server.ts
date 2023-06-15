@@ -1,5 +1,5 @@
-import { fail } from '@sveltejs/kit';
-import { message, superValidate } from 'sveltekit-superforms/server';
+import { fail, redirect } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms/server';
 import { createContract, insertContractSchema } from '$lib/server/services/contract';
 import { getAllEmployees } from '$lib/server/services/employee';
 import { getAllContractTypes, getContractTypeUOP } from '$lib/server/services/contractType';
@@ -25,7 +25,7 @@ export const actions = {
 		try {
 			createContract(form.data);
 			console.log('form', form);
-			return message(form, { message: 'Contract created', status: 201, type: 'success' });
+			throw redirect(303, '/contractsView');
 		} catch (err) {
 			return fail(500, { message: 'Could not create subject' });
 		}

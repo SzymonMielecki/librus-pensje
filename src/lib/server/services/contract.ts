@@ -1,41 +1,56 @@
 import { db } from '../db';
 import { eq, type InferModel } from 'drizzle-orm';
-import {
-	Contract,
-	ContractService,
-	ContractType,
-	Employee,
-	SalaryType
-} from '$lib/server/db/schema/';
+import { contract } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
 
-export type Contract = InferModel<typeof Contract>;
-export type NewContract = InferModel<typeof Contract, 'insert'>;
+export type Contract = InferModel<typeof contract>;
+export type NewContract = InferModel<typeof contract, 'insert'>;
 
-export const insertContractSchema = createInsertSchema(Contract);
+export const insertContractSchema = createInsertSchema(contract);
 
 export const getAllContracts = async () => {
-	return await db
-		.select()
-		.from(Contract)
-		.leftJoin(Employee, eq(Contract.employeeId, Employee.id))
-		.leftJoin(ContractType, eq(Contract.contractTypeId, ContractType.id))
-		.leftJoin(SalaryType, eq(Contract.salaryTypeId, SalaryType.id));
+	return await db.query.contract.findMany({
+		with: {
+			employee: true,
+			contractType: true,
+			salaryType: true,
+			contractService: {
+				with: {
+					service: true,
+					salaryType: true,
+					category: true,
+					contractEmployeeType: true,
+					hoursMonths: true
+				}
+			}
+		}
+	});
 };
 
 export const createContract = async (data: NewContract) => {
-	return await db.insert(Contract).values(data);
+	return await db.insert(contract).values(data);
 };
 
 export const getContractWhereId = async (id: number) => {
-	const contractWhereId = await db
-		.select()
-		.from(Contract)
-		.where(eq(Contract.id, id))
-		.leftJoin(Employee, eq(Contract.employeeId, Employee.id))
-		.leftJoin(ContractType, eq(Contract.contractTypeId, ContractType.id))
-		.leftJoin(SalaryType, eq(Contract.salaryTypeId, SalaryType.id))
-		.leftJoin(ContractService, eq(Contract.id, ContractService.contractId));
-	console.log('contractWhereId', contractWhereId[0]);
-	return contractWhereId[0];
+	return await db.query.contract.findFirst({
+		where: eq(contract.id, id),
+		with: {
+			employee: true,
+			contractType: true,
+			salaryType: true,
+			contractService: {
+				with: {
+					service: true,
+					salaryType: true,
+					category: true,
+					contractEmployeeType: true,
+					hoursMonths: true
+				}
+			}
+		}
+	});
+};
+
+export const deleteContract = async (id: number) => {
+	return await db.delete(contract).where(eq(contract.id, id));
 };
