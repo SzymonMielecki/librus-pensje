@@ -51,12 +51,9 @@
 <div class="grid place-content-center h-full w-full">
 	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
 		<h1 class="m-4 text-xl">
-			Nowa Usługa 
-		</h1>
-		<h2 class="text-lg">
-			dla pracownika {thisContractInfo.employee.name} <br>
+			Nowa Usługa <br>
 			dla Umowy nr. {thisContractInfo.number} <br>
-		</h2>
+		</h1>
 
 		<input type="hidden" bind:value={$form.contractId}>
 
@@ -154,6 +151,5 @@
 		{/if} -->
 		<button class="btn" type="submit">Dodaj</button>
 	</form>
-	<button class="btn btn-outline" on:click={() => {console.log($form)}}>test</button>
 </div>
 {/if}
