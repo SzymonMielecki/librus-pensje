@@ -1,10 +1,10 @@
-import { mysqlTable, double, serial, int } from 'drizzle-orm/mysql-core';
+import { mysqlTable, serial, int } from 'drizzle-orm/mysql-core';
 import { relations } from 'drizzle-orm';
 import { contract, service, salaryType, category, contractEmployeeType, hoursMonths } from './';
 
 export const contractService = mysqlTable('contractService', {
 	id: serial('id').primaryKey(),
-	salary: double('salary'),
+	salary: int('salary'),
 	contractId: int('contractId').notNull(),
 	serviceId: int('serviceId').notNull(),
 	salaryTypeId: int('salaryTypeId'),

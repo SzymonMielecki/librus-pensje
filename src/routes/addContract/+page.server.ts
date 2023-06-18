@@ -23,11 +23,11 @@ export const actions = {
 		const form = await superValidate(event, insertContractSchema);
 		if (!form.valid) return fail(400, { message: 'Invalid form data' });
 		try {
-			createContract(form.data);
+			await createContract(form.data);
 			console.log('form', form);
-			throw redirect(303, '/contractsView');
 		} catch (err) {
-			return fail(500, { message: 'Could not create subject' });
+			return fail(500, { message: 'Could not create contract' });
 		}
+		throw redirect(303, `/contractsView`);
 	}
 } satisfies Actions;

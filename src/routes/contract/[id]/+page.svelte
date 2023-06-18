@@ -62,6 +62,7 @@
 				<tr>
 					<th />
 					<th>Przedmiot</th>
+					<th>Stawka</th>
 					<th>Wrzesień</th>
 					<th>Październik</th>
 					<th>Listopad</th>
@@ -80,11 +81,12 @@
 				{#if thisContract}
 					{#each thisContract.contractService as contractService}
 						<tr>
-							<td>Wynagrodzenie/Ilośc godzin</td>
-							<td>{contractService}</td>
+							<td>Ilośc godzin</td>
+							<td>{contractService.service.name}</td>
+							<td>{contractService.salary}</td>
 							{#each monthList as month}
-								<td>{Number(contractService.hoursMonths.find((element) => element.month === Number(month))?.hoursWorked)}</td>
-								<td>{contractService.hoursMonths}</td>
+								<td>{contractService.hoursMonths.find((element) => element.month === Number(month))?.hoursWorked}</td>
+								<!-- <td>{contractService.hoursMonths}</td> -->
 							{/each}
 						</tr>
 					{/each}	

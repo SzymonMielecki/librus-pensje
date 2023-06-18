@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { ContractType, SalaryType } from '$lib/server/db/schema';
+import { contractType, salaryType } from '$lib/server/db/schema';
 
 const premadeContractTypes = [
 	{ name: 'Umowa o pracę' },
@@ -11,6 +11,6 @@ const premadeContractTypes = [
 const premadeSalaryTypes = [{ name: 'Netto' }, { name: 'Brutto' }];
 
 export const seed = async () => {
-	await db.insert(ContractType).values(premadeContractTypes);
-	await db.insert(SalaryType).values(premadeSalaryTypes);
+	await db.insert(contractType).values(premadeContractTypes);
+	await db.insert(salaryType).values(premadeSalaryTypes);
 };

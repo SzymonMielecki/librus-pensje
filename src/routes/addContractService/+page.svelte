@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
-	import Combobox from '$lib/ui/combobox.svelte';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-	import { goto } from '$app/navigation';
 	export let data
 
 	let thisContractInfo = data.thisContractInfo
@@ -31,22 +27,8 @@
 			name: contractEmployeeType.name
 		}
 	})
-	const { form, enhance } = superForm(data.form, {
-		taintedMessage: null
-	});
-	// console.log(fromWhereId)
-	if (thisContractInfo) {
-		$form.contractId = thisContractInfo.id
-	} else {
-		goto('/contractsView')
-	}
-	console.log('contractId', $form.contractId);
-	console.log('thisContractInfo', thisContractInfo);
-	
+	const { form, enhance } = superForm(data.form);
 </script>
-
-<SuperDebug data={$form} />
-
 {#if thisContractInfo}
 <div class="grid place-content-center h-full w-full">
 	<form method="POST" autocomplete="off" use:enhance class="grid h-full p-6 gap-8 w-96 max-w-sm border-subtle rounded-3xl border ">
@@ -57,12 +39,11 @@
 
 		<input type="hidden" bind:value={$form.contractId}>
 
-
 		<label class="input-label w-full" for="serviceId">
 			Usługa
 			<!-- <Combobox id="serviceId" placeholder="Podstawy Informatyki" items={service} bind:value={comboboxSelectedService}/> -->
 			<select name="serviceId" id="serviceId" class="input w-full" bind:value={$form.serviceId}>
-				<option value="" disabled selected hidden>Wybierz usługę</option>
+				<!-- <option value="" disabled selected hidden>Wybierz usługę</option> -->
 				{#each service as service}
 					<option value={service.id}>{service.name}</option>
 				{/each}
@@ -89,7 +70,7 @@
 				class="input w-full"
 				bind:value={$form.salaryTypeId}
 			>
-				<option value="" disabled selected hidden>Wybierz typ stawki</option>
+				<!-- <option value="" disabled selected hidden>Wybierz typ stawki</option> -->
 				{#each salaryType as salaryType}
 					<option value={salaryType.id}>{salaryType.name}</option>
 				{/each}
@@ -99,7 +80,7 @@
 		<label class="input-label w-full" for="categoryId">
 			Kategoria
 			<select name="categoryId" id="categoryId" class="input w-full" bind:value={$form.categoryId}>
-				<option value="" disabled selected hidden>Wybierz kategorię umowy</option>
+				<!-- <option value="" disabled selected hidden>Wybierz kategorię umowy</option> -->
 				{#each category as category}
 					<option value={category.id}>{category.name}</option>
 				{/each}
@@ -114,7 +95,7 @@
 				class="input w-full"
 				bind:value={$form.contractEmployeeTypeId}
 			>
-				<option value="" disabled selected hidden>Wybierz typ pracownika</option>
+				<!-- <option value="" disabled selected hidden>Wybierz typ pracownika</option> -->
 				{#each contractEmployeeType as contractEmployeeType}
 					<option value={contractEmployeeType.id}>{contractEmployeeType.name}</option>
 				{/each}

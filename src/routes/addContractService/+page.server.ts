@@ -9,7 +9,7 @@ import { getAllSalaryTypes } from '$lib/server/services/salaryType';
 import { getAllServices } from '$lib/server/services/service';
 import { getAllContractEmployeeTypes } from '$lib/server/services/contractEmployeeType';
 import { getContractTypeUOP } from '$lib/server/services/contractType';
-import { getContractWhereId } from '$lib/server/services/contract.js';
+import { getContractWhereId } from '$lib/server/services/contract';
 
 export const load = async ({ url }) => {
 	const form = await superValidate(insertContractServiceSchema);
@@ -30,11 +30,19 @@ export const actions = {
 			return fail(400, { form });
 		}
 		try {
-			await createContractService(form.data);
-			console.log('form', form);
+			console.log('form.data', form.data);
+			await createContractService({
+				contractId: Number(url.searchParams.get('contractId')),
+				serviceId: form.data.serviceId,
+				salary: form.data.salary,
+				salaryTypeId: form.data.salaryTypeId,
+				categoryId: form.data.categoryId,
+				contractEmployeeTypeId: form.data.contractEmployeeTypeId
+			});
+			// return { form };
+			throw redirect(303, `/contract/${url.searchParams.get('contractId')}`);
 		} catch (err) {
 			return fail(500, { message: 'Could not create contract type' });
 		}
-		throw redirect(303, `/contract/${url.searchParams.get('contractId')}`);
 	}
 };
