@@ -1,16 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Popover from '$lib/ui/popover.svelte';
 	import Table from '$lib/ui/table.svelte';
-	import Tabs from '$lib/ui/tabs.svelte';
-	import { Edit, MoreHorizontal, Plus, Trash2, Trash2Icon } from 'lucide-svelte'
-	import { tippy } from 'svelte-tippy';
+	import { Plus} from 'lucide-svelte'
 	export let data
-	const d = new Date().getMonth()+1;
-	console.log(d)
 	const contracts = data.contracts
 	console.log(contracts);
-	let selected: string[] = [];
 	let items = contracts.map((items) => {
 		return {
 			id: items.id,
@@ -40,8 +34,6 @@
 		<Table
 			items={items}
 			id="id"
-			bind:selected
-			selectable
 			interactive
 			on:rowclick={({ detail: row }) => goto(`/contract/${row.id}`)}
 			tableColumns={Object.keys(item).map((key) => ({
@@ -51,8 +43,6 @@
 					.replace(/^./, (str) => str.toUpperCase()),
 				name: key
 			}))}
-		>
-		
-		</Table>
+		/>
 	</div>
 </div>

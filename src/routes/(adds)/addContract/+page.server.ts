@@ -19,8 +19,8 @@ export const load = loadFlashMessage(async (event) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async (event) => {
-		const form = await superValidate(event, insertContractSchema);
+	default: async ({ request }) => {
+		const form = await superValidate(request, insertContractSchema);
 		if (!form.valid) return fail(400, { message: 'Invalid form data' });
 		try {
 			await createContract(form.data);

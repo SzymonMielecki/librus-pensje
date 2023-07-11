@@ -2,8 +2,6 @@
 	import Sidebar from '$lib/sidebar.svelte';
 	import Heading from '$lib/heading.svelte';
 	import '../app.postcss';
-	import toast, { Toaster } from 'svelte-french-toast';
-
 </script>
 
 <svelte:head>
@@ -17,7 +15,6 @@
 	<Sidebar />
 	<div class="flex-grow">
 		<Heading />
-		<Toaster />
 		<slot />
 	</div>
 </div>

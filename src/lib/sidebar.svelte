@@ -1,12 +1,9 @@
 <script>
 	import { scale, fly, crossfade } from 'svelte/transition';
 	import {
-		HeartOff,
 		Home,
-		ScrollText,
 		SidebarClose,
 		SidebarOpen,
-		Star,
 		UserPlus2
 	} from 'lucide-svelte';
 	import { Calendar, Newspaper, Users, Edit, ListPlus, Contact, Album, Book } from 'lucide-svelte';
@@ -24,35 +21,35 @@
 		},
 		{
 			icon: Calendar,
-			label: 'Widok umów',
+			label: 'Umowy',
 			href: '/contractsView'
 		},
 		{
 			icon: Album,
-			label: 'Dodaj Kategorię',
-			href: '/addCategory'
+			label: 'Kategorie',
+			href: '/categoriesView'
 		},
 		{
 			icon: Contact,
-			label: 'Dodaj typ pracownika',
-			href: '/addContractEmployeeType'
+			label: 'Typy pracowników',
+			href: '/contractEmployeeTypeView'
 		},
 		{
 			icon: UserPlus2,
-			label: 'Dodaj pracownika',
-			href: '/addEmployee'
+			label: 'Pracownicy',
+			href: '/employeesView'
 		},
 		{
 			icon: Edit,
-			label: 'Dodaj usługę',
-			href: '/addService'
+			label: 'Usługi',
+			href: '/servicesView'
 		}
 	];
 	const [send, receive] = crossfade({});
 </script>
 
 <div
-	class="h-screen border-r border-subtle transition-all px-[1.4rem] w-[5.5rem] flex flex-col gap-8 py-12 data-[expanded=true]:w-56 sticky"
+	class="h-screen border-r border-subtle transition-all px-[1.4rem] w-[5.5rem] flex flex-col gap-8 py-12 data-[expanded=true]:w-56 sticky top-0 left-0"
 	data-expanded={expanded}
 >
 	<div class="flex items-center gap-4">
@@ -88,7 +85,7 @@
 						href={item.href}
 						aria-current={current}
 						aria-label={item.label}
-						class="relative btn btn-text h-11 p-0 {expanded ? 'w-44 transition-[width]' : 'w-11'}"
+						class="relative btn btn-text h-11 p-0 {expanded ? 'w-48 transition-[width]' : 'w-11'}"
 					>
 						<span
 							class="absolute text-sm inset-0 flex {expanded

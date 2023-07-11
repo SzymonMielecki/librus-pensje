@@ -1,7 +1,8 @@
 import { db } from '../db';
 import { eq, type InferModel } from 'drizzle-orm';
-import { contract } from '$lib/server/db/schema';
+import { contract, contractService } from '$lib/server/db/schema';
 import { createInsertSchema } from 'drizzle-zod';
+import { deleteContractService } from './contractService';
 
 export type Contract = InferModel<typeof contract>;
 export type NewContract = InferModel<typeof contract, 'insert'>;
@@ -52,5 +53,10 @@ export const getContractWhereId = async (id: number) => {
 };
 
 export const deleteContract = async (id: number) => {
+	const thisContract = await getContractWhereId(id);
+	if (!thisContract) return;
+	thisContract.contractService.forEach((element) => {
+		deleteContractService(element.id);
+	});
 	return await db.delete(contract).where(eq(contract.id, id));
 };

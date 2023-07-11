@@ -40,9 +40,9 @@ export const actions = {
 				contractEmployeeTypeId: form.data.contractEmployeeTypeId
 			});
 			// return { form };
-			throw redirect(303, `/contract/${url.searchParams.get('contractId')}`);
 		} catch (err) {
 			return fail(500, { message: 'Could not create contract type' });
 		}
+		throw redirect(303, `/contract/${url.searchParams.get('contractId')}`);
 	}
 };

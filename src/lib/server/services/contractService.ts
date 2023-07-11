@@ -8,7 +8,7 @@ export type NewContractService = InferModel<typeof contractService, 'insert'>;
 
 export const insertContractServiceSchema = createInsertSchema(contractService);
 
-const hoursMonthsContent = (contractServiceId: any) => {
+const hoursMonthsContent = (contractServiceId: number) => {
 	return [
 		{
 			contractServiceId: contractServiceId,
@@ -75,18 +75,32 @@ const hoursMonthsContent = (contractServiceId: any) => {
 
 export const createContractService = async (data: NewContractService) => {
 	await db.insert(contractService).values(data);
-	const insertedContractService = await db.query.contractService.findMany({
+	const insertedContractService = await db.query.contractService.findFirst({
 		where:
 			eq(contractService.contractId, data.contractId) &&
 			eq(contractService.serviceId, data.serviceId) &&
 			eq(contractService.categoryId, data.categoryId) &&
 			eq(contractService.contractEmployeeTypeId, data.contractEmployeeTypeId)
 	});
+	console.log(insertedContractService);
 	insertedContractService
-		? await db.insert(hoursMonths).values(hoursMonthsContent(insertedContractService[0].id))
+		? await db.insert(hoursMonths).values(hoursMonthsContent(insertedContractService.id))
 		: null;
 };
 
 export const getAllContractServices = async () => {
 	return await db.select().from(contractService);
+};
+
+export const getContractServiceWhereId = async (id: number) => {
+	return await db.query.contractService.findFirst({
+		where: eq(contractService.id, id)
+	});
+};
+
+export const deleteContractService = async (id: number) => {
+	const thisContractService = await getContractServiceWhereId(id);
+	if (!thisContractService) return;
+	await db.delete(hoursMonths).where(eq(hoursMonths.contractServiceId, id));
+	return await db.delete(contractService).where(eq(contractService.id, id));
 };

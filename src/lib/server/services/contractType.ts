@@ -14,9 +14,9 @@ export const createContractType = async (data: NewContractType) => {
 };
 
 export const getAllContractTypes = async () => {
-	return await db.select().from(contractType);
+	return await db.query.contractType.findMany();
 };
 
 export const getContractTypeUOP = async () => {
-	return await db.select().from(contractType).where(eq(contractType.name, 'Umowa o pracę'));
+	return await db.query.contractType.findFirst({ where: eq(contractType.name, 'Umowa o pracę') });
 };

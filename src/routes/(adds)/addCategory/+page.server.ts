@@ -1,25 +1,22 @@
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
-import {
-	createContractEmployeeType,
-	insertContractEmployeeTypeSchema
-} from '$lib/server/services/contractEmployeeType';
+import { createCategory, insertCategorySchema } from '$lib/server/services/category';
 
 export const load = async (event) => {
-	const form = await superValidate(event, insertContractEmployeeTypeSchema);
+	const form = await superValidate(event, insertCategorySchema);
 	return { form };
 };
 
 export const actions = {
-	default: async (event) => {
-		const form = await superValidate(event, insertContractEmployeeTypeSchema);
+	default: async ({ request }) => {
+		const form = await superValidate(request, insertCategorySchema);
 		if (!form.valid) {
 			return fail(400, {
 				form
 			});
 		}
 		try {
-			createContractEmployeeType(form.data);
+			createCategory(form.data);
 		} catch (err) {
 			return fail(500, { message: 'Could not create contract type' });
 		}
